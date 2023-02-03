@@ -232,7 +232,7 @@ export default {
 			}
 		},
 		reload: function() {
-			this.loading = true;
+			//this.loading = true;
 			api('/api/issue/index', 'get', proxyToQuery(this.search)).then((ret) => {
 				if (ret.status == 'success') {
 					this.list = ret.data;
