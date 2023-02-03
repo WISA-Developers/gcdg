@@ -1105,6 +1105,9 @@ div.nodata {
 	--cal-sch-9: #ecd9e9;
 	--cal-sch-10: #dfeef9;
 	--cal-sch-11: #defed8;
+	--cal-sch-12: #d09069;
+	--cal-sch-13: #768aa2;
+	--cal-sch-14: #676a59;
 }
 
 /* horizontal */
@@ -1171,6 +1174,7 @@ div.nodata {
 
 .calender > li > div > .plans > li.has_plan {
 	cursor: pointer;
+	background-color: #f2f2f2;
 }
 
 .calender > li > div > .plans > li.has_plan.issue_color_0 {
@@ -1230,6 +1234,21 @@ div.nodata {
 
 .calender > li > div > .plans > li.has_plan.issue_color_11 {
 	background-color: var(--cal-sch-11);
+	color: #000;
+}
+
+.calender > li > div > .plans > li.has_plan.issue_color_12 {
+	background-color: var(--cal-sch-12);
+	color: #000;
+}
+
+.calender > li > div > .plans > li.has_plan.issue_color_13 {
+	background-color: var(--cal-sch-13);
+	color: #000;
+}
+
+.calender > li > div > .plans > li.has_plan.issue_color_14 {
+	background-color: var(--cal-sch-13);
 	color: #000;
 }
 
