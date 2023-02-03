@@ -188,6 +188,9 @@ class Staff extends App {
         if (!file_exists($snapshot)) {
             $fp = fopen($snapshot, 'w');
         }
+        if (!is_writable($snapshot)) {
+            throw new CommonException('사원 정보 캐시 오류');
+        }        
         $snapshot_mtime = filemtime($snapshot);
         if (time()-$snapshot_mtime > 7200) {
             $staffs = self::all();
