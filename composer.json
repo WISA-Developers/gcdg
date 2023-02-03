@@ -19,7 +19,7 @@
         "jasongrimes/paginator": "^1.0",
         "zeuxisoo/core-validator": "dev-master",
         "symfony/http-client": "^5.4",
-        "zardsama/session": "^0.1.0",
+        "zardsama/session": "^0.2.0",
         "zardsama/pdo": "^0.11.0",
         "jfcherng/php-diff": "^6.13"
     }

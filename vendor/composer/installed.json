@@ -1023,23 +1023,23 @@
         },
         {
             "name": "zardsama/session",
-            "version": "0.1",
-            "version_normalized": "0.1.0.0",
+            "version": "0.2",
+            "version_normalized": "0.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zardsama/session.git",
-                "reference": "b47c29584996e2e6e54758ecd6a85a4a3ec4bc91"
+                "reference": "a6763700bb06e85e873dadda5c1edd55724b3f62"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zardsama/session/zipball/b47c29584996e2e6e54758ecd6a85a4a3ec4bc91",
-                "reference": "b47c29584996e2e6e54758ecd6a85a4a3ec4bc91",
+                "url": "https://api.github.com/repos/zardsama/session/zipball/a6763700bb06e85e873dadda5c1edd55724b3f62",
+                "reference": "a6763700bb06e85e873dadda5c1edd55724b3f62",
                 "shasum": ""
             },
             "require": {
                 "zardsama/pdo": ">=0.1"
             },
-            "time": "2021-04-02T04:27:32+00:00",
+            "time": "2023-02-03T07:18:08+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -1060,7 +1060,7 @@
             "description": "db session library",
             "support": {
                 "issues": "https://github.com/zardsama/session/issues",
-                "source": "https://github.com/zardsama/session/tree/0.1"
+                "source": "https://github.com/zardsama/session/tree/0.2"
             },
             "install-path": "../zardsama/session"
         },

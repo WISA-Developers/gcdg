@@ -16,11 +16,10 @@ class MySQLSession extends SessionHandler
     public function __construct(&$db)
     {
         $this->db = $db;
-        if ($this->db->rowCount('SHOW TABLES LIKE "'.SELF::TABLE.'"') == 0) {
+        if ($this->db->rowCount('SHOW TABLES LIKE '.SELF::TABLE) == 0) {
             $this->createTable();
         }
         $this->init();
-        return true;
     }
 
     public function open($savePath, $sessionName)
@@ -61,7 +60,7 @@ class MySQLSession extends SessionHandler
             ));
         } else {
             $result = $this->db->query("
-                insert into ".SELF::TABLE." (session_id, data, remote_addr, page, reg_date, accesstime)
+                insert into ".SELF::TABLE." (session_id, data, remote_addr, page, regdate, accesstime)
                 values ('$id', ?, ?, ?, now(), now())"
             , array(
                 $data, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI']
@@ -73,14 +72,14 @@ class MySQLSession extends SessionHandler
     public function destroy($id)
     {
         $result = @$this->db->query("delete from ".SELF::TABLE." where session_id='$id'");
-        return $result;
+        return true;
     }
 
     public function gc($maxlifetime)
     {
         $expire_time = time()-$maxlifetime;
         $result = @$this->db->query("delete from ".SELF::TABLE." where accesstime < '$expire_time'");
-        return $result;
+        return true;
     }
 
     public function exists($id) {
