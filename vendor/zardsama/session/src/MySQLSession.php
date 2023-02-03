@@ -20,7 +20,6 @@ class MySQLSession extends SessionHandler
             $this->createTable();
         }
         $this->init();
-        return true;
     }
 
     public function open($savePath, $sessionName)
@@ -73,14 +72,14 @@ class MySQLSession extends SessionHandler
     public function destroy($id)
     {
         $result = @$this->db->query("delete from ".SELF::TABLE." where session_id='$id'");
-        return $result;
+        return true;
     }
 
     public function gc($maxlifetime)
     {
         $expire_time = time()-$maxlifetime;
         $result = @$this->db->query("delete from ".SELF::TABLE." where accesstime < '$expire_time'");
-        return $result;
+        return true;
     }
 
     public function exists($id) {

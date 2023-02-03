@@ -104,7 +104,7 @@ class Issue extends App {
             })
             ->groupBy('i.idx');
 
-        if (!$this->projectPermission('admin,project_admin,member', $project_idx)) {
+        if (!$this->projectPermission('admin,project_admin,member,developer', $project_idx)) {
             throw new CommonException('프로젝트 접근권한이 없습니다.');
         }
 
@@ -197,6 +197,8 @@ class Issue extends App {
                 $data->staffs[] = $_staffs[$_staff_idx];
             }
             unset($data->staffs_all);
+
+            $data->creater = $_staffs[$data->creater_idx];
         }
 
         $this->output([
@@ -402,7 +404,7 @@ class Issue extends App {
                 ->where('idx', $idx)
                 ->update($data);
         } else {
-            if (!$this->projectPermission('admin,project_admin,member', $this->currentProjectIdx())) {
+            if (!$this->projectPermission('admin,project_admin,member,developer', $this->currentProjectIdx())) {
                 throw new CommonException('프로젝트 접근 권한이 없습니다.');
             }
 

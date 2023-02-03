@@ -38,12 +38,16 @@ input[type=text], input[type=password] {
 h2.title {
 	position: relative;
 	margin: 0;
-	padding: 10px 55px 10px 0;
+	padding: 10px 0 10px 0;
 	text-align: left;
 	font-weight: 700;
 	color: var(--table-caption-color);
 	font-size: 1.5em;
 	word-break: break-all;
+}
+
+h2.title.has_buttons {
+	padding-right: 60px;
 }
 
 a {
@@ -1105,9 +1109,8 @@ div.nodata {
 	--cal-sch-9: #ecd9e9;
 	--cal-sch-10: #dfeef9;
 	--cal-sch-11: #defed8;
-	--cal-sch-12: #d09069;
-	--cal-sch-13: #768aa2;
-	--cal-sch-14: #676a59;
+	--cal-sch-12: #cccc99;
+	--cal-sch-13: #9eb8fa;
 }
 
 /* horizontal */
@@ -1174,7 +1177,7 @@ div.nodata {
 
 .calender > li > div > .plans > li.has_plan {
 	cursor: pointer;
-	background-color: #f2f2f2;
+	background-color: #ccc;
 }
 
 .calender > li > div > .plans > li.has_plan.issue_color_0 {
@@ -1243,11 +1246,6 @@ div.nodata {
 }
 
 .calender > li > div > .plans > li.has_plan.issue_color_13 {
-	background-color: var(--cal-sch-13);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_14 {
 	background-color: var(--cal-sch-13);
 	color: #000;
 }
