@@ -5,7 +5,7 @@
 				<legend>프로젝트</legend>
 				<ul class="long">
 					<li><label><input type="radio" value="" v-model="search.project_range"> 전체</label></li>
-					<li><label><input type="radio" :value="current_project.idx" v-model="search.project_range"> {{ current_project.name }}</label></li>
+					<li><label><input type="radio" :value="me.current_project_idx" v-model="search.project_range"> {{ me.current_project_name }}</label></li>
 				</ul>
 			</fieldset>
 
@@ -104,7 +104,10 @@
 
 <script type="module">
 export default {
-	inject: ['define_config', 'staff_snapshot', 'current_project'],
+	inject: ['define_config', 'staff_snapshot'],
+    props: {
+        'me': Array
+    },
 	setup: function() {
 		const to_month = new Date().toISOString().substr(0, 7);
 		return {
@@ -131,7 +134,7 @@ export default {
 			calday: null,
 			plans: null,
 			issue_week_offset: null,
-			vertical: window.localStorage.getItem('calendar-vertical')
+			vertical: window.localStorage.getItem('calendar-vertical'),
 		}
 	},
 	watch: {
