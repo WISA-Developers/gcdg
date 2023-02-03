@@ -114,6 +114,7 @@ class Schedule extends App {
             ->join(['project', 'p'], 'p.idx', '=', 'i.project_idx')
             ->select(['i.idx', 'i.project_idx',  'i.title', 'r.staff_idx', 'r.role', 's.project_idx', 'p.project_name'])
             ->where('schedule_date', date('Y-m-d'))
+            ->where('i.project_idx', $this->currentProjectIdx())
             ->groupby('i.idx')->groupby('r.staff_idx')
             ->orderBy('r.staff_idx', 'asc')
             ->orderBy('i.project_idx', 'asc')

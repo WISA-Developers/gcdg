@@ -9,7 +9,6 @@
                     :style="{'border-color': 'var(--cal-sch-'+issue_offset[item.idx]+')'}"
                 >
                     <router-link :to="'/issue/view/'+item.idx">{{ item.title }}&nbsp;</router-link>
-                    <span class="project"> | {{ item.project.name }}</span>
                 </li>
             </ul>
         </div>
