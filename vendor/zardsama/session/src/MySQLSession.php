@@ -16,7 +16,7 @@ class MySQLSession extends SessionHandler
     public function __construct(&$db)
     {
         $this->db = $db;
-        if ($this->db->rowCount('SHOW TABLES LIKE '.SELF::TABLE) == 0) {
+        if ($this->db->rowCount('SHOW TABLES LIKE "'.SELF::TABLE.'"') == 0) {
             $this->createTable();
         }
         $this->init();
@@ -60,7 +60,7 @@ class MySQLSession extends SessionHandler
             ));
         } else {
             $result = $this->db->query("
-                insert into ".SELF::TABLE." (session_id, data, remote_addr, page, regdate, accesstime)
+                insert into ".SELF::TABLE." (session_id, data, remote_addr, page, reg_date, accesstime)
                 values ('$id', ?, ?, ?, now(), now())"
             , array(
                 $data, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI']
