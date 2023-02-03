@@ -1,0 +1,38 @@
+.pagination {
+	margin: 0;
+	padding: 0;
+}
+
+.pagination li {
+    display: inline-block;
+	min-width: 32px;
+    min-height: 32px;
+    margin-right: 1px;
+	border-radius: 3px;
+    text-align: center;
+    
+    color: #fff;
+    font-size: 11px;
+}
+
+.pagination li a, .pagination li span {
+	display: block;
+	height: 100%;
+	padding: 11px;
+	border-radius: 3px;
+	background: #ccc;
+	line-height: 1;
+	color: #fff;
+}
+
+.pagination li span {
+	background: #e0e0e0;
+}
+
+.pagination li.active a {
+    background-color: #000;
+}
+
+.pagination li a:hover {
+    background: var(--point-color);
+}

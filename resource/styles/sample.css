@@ -1,0 +1,296 @@
+/* initial */
+* {
+    box-sizing: border-box;
+}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    color:#000;
+    font-family: 'NotoSansKR', 'Sawarabi Gothic', '맑은 고딕', '돋움', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    vertical-align: baseline;
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+a {
+    text-decoration: none;
+}
+
+:root {
+    --theme_color: rgb(29, 155, 240);
+    --theme_color_alhpa: rgb(29, 155, 240, 0.1)
+    --point_color: rgb(0, 0, 0);
+    --table_bg: #343b48;
+}
+
+/* fonts */
+@font-face {
+    font-family:'NotoSansKR';
+    font-weight: 300;
+    src:url('../images/font/NotoSansKR-Light.eot');
+    src:local(※), url('../images/font/NotoSansKR-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family:'NotoSansKR';
+    font-weight: 400;
+    src:url('../images/font/NotoSansKR-Regular.eot');
+    src:local(※), url('../images/font/NotoSansKR-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family:'NotoSansKR';
+    font-weight: 500;
+    src:url('../images/font/NotoSansKR-Medium.eot');
+    src:local(※), url('../images/font/NotoSansKR-Medium.woff') format('woff');
+}
+
+@font-face {
+    font-family:'NotoSansKR';
+    font-weight: 700;
+    src:url('../images/font/NotoSansKR-Bold.eot');
+    src:local(※), url('../images/font/NotoSansKR-Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: "Noto Color Emoji";
+    src: url("../images/font/NotoColorEmoji.ttf") format('truetype');
+}
+
+/* gnb */
+.gnb {
+    height: 50px;
+    padding: 0 15px;
+    background: #343b48;
+    color: #fff;
+}
+
+.gnb > ul {
+    display: table;
+    margin: 0;
+}
+
+.gnb > ul > li {
+    display: table-cell;
+    height: 50px;
+    vertical-align: middle;
+}
+
+.gnb > ul > li > a {
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-weight: 700;
+    color: #fff;
+}
+
+/* dashboard */
+.content {
+}
+
+.dashboard > ul {
+    list-style:none;
+    margin-bottom: 20px;
+    border-bottom: dashed 1px #ccc;
+}
+
+.dashboard > ul > li {
+    padding: 5px 0;
+}
+
+.dashboard > ul > li > span {
+    float: left;
+    margin-right: 5px;
+    padding: 0px 10px;
+    border-radius: 5px;
+    color: var(--point_color);
+    background: #f2f2f2;
+    font-size: 12px;
+}
+
+.dashboard > ul > li > span.stat1 {
+    background: #000;
+    color: #fff;
+}
+
+.dashboard > ul > li > span.stat3 {
+    background: #ff8400;
+    color: #fff;
+}
+
+.dashboard > ul > li > span.stat5 {
+    background: #ff00ff;
+    color: #fff;
+}
+
+.dashboard > ul > li > span.stat7 {
+    color: #666;
+}
+
+.dashboard > ul > li > .description {
+    font-size: 11px;
+    color: #aaa;
+}
+
+.dashboard > ul > li > .items {
+    margin-left: 100px;
+}
+
+.table_vertical {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table_vertical th {
+    position: relative;
+    padding: 10px 5px;
+    border-bottom: solid 3px #dedede;
+}
+
+.table_vertical th:not(:last-child):after {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    content: "";
+    border-right: solid 1px #dedede;
+    height: calc(100% - 20px);
+}
+
+.table_vertical th:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.table_vertical th:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+.table_vertical tbody tr:hover {
+    background-color: #f8f8f8;
+}
+
+.table_vertical tbody td {
+    padding: 10px;
+    border-bottom: solid 1px #f2f2f2;
+    text-align: center;
+    font-size: 12px;
+}
+
+.table_vertical tbody td.left {
+    text-align: left;
+}
+
+.table_horizontal {
+    border-collapse: collapse;
+    width: 100%;
+    border-top: solid 3px #dedede;
+}
+
+.table_horizontal caption {
+    font-weight: 700;
+    font-size: 20px;
+    text-align: left;
+}
+
+.table_horizontal th {
+    position: relative;
+    padding: 10px;
+    border-bottom: solid 1px #dedede;
+    text-align: right;
+}
+
+.table_horizontal th:after {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    content: "";
+    border-right: solid 1px #dedede;
+    height: calc(100% - 20px);
+}
+
+.bottom_buttons {
+    padding: 10px 0;
+    text-align: right;
+}
+
+span.button input[type=button] {
+    padding: 10px 50px;
+    border-radius: 5px;
+    border: 0;
+    background: #f2f2f2;
+    color: #000;
+    cursor: pointer;
+}
+
+.table_horizontal tbody td {
+    padding: 10px;
+    border-bottom: solid 1px #f2f2f2;
+}
+
+.issue_planner {
+    border-collapse: collapse;
+}
+
+.sample_block h3 {
+    padding: 5px 0;
+    margin: 5px 0;
+    border-bottom: double 3px #dedede;
+}
+
+.issue_planner {
+	border-top: solid 1px #ccc;
+	border-left: solid 1px #ccc;
+}
+.issue_planner thead th {
+    padding: 2px;
+    border-right: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+}
+
+.issue_planner tbody th {
+    padding: 2px;
+    border-right: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+}
+
+.issue_planner tbody th {
+    border-right: solid 1px #ccc;
+}
+.issue_planner tbody td {
+    vertical-align: top;
+    height: 30px;
+    width: 30px;
+    border-right: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+}
+
+.issue_planner tbody td a {
+    display: block;
+    width: 100%;
+    height: 50%;
+    background-color: #f2f2f2;
+}
+
+.issue_planner tbody tr.plan td a.done {
+    background-color: #9acf32;
+}
+.issue_planner tbody tr.develop td a.done {
+    background-color: #ff8400;
+}

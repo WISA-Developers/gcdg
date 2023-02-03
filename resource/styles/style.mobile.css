@@ -1,0 +1,213 @@
+@media screen and (max-width: 800px) {
+	.gnb {
+		display: block;
+		min-width: auto;
+		height: auto;
+		padding: 5px;
+	}
+
+	.gnb .logo {
+		margin: 3px;
+	}
+
+	.gnb > .menu {
+		display: grid;
+		grid-template-columns: repeat(7, auto);
+	}
+
+	.gnb > .menu li a { 
+		padding: 0;
+	}
+	
+	.gnb > .gnb_items > .user {
+		position: absolute;
+		right: 10px;
+		top: 23px;
+	}
+
+	.gnb > .gnb_items > .user img {
+		height:20px; 
+		border-radius: 50%;
+	}
+
+	.layoutHorizontal {
+		display: block;
+		height: auto;
+	}
+
+	.layoutHorizontal .contentArea {
+		min-width: auto;
+		width: 100%;
+	}
+
+	.leftArea.flexible, .leftArea .flexible {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 5px;
+	}
+
+	.leftArea > fieldset {
+		grid-column: span 2;
+	}
+
+	.leftArea > fieldset.m_half {
+		grid-column: span 1;
+	}
+
+	.leftArea > fieldset div.m_half {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		grid-gap: 5px;
+	}
+
+	.leftArea > fieldset > ul {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr); 
+	}
+
+	.tableVertical {
+		display: inline-block;
+	}
+
+	.tableVertical caption {
+		display: block;
+	}
+
+	.tableVertical tbody {
+		display: block;
+		width: 100%;
+	}
+	.tableVertical > tbody > tr {
+		display: block;
+	}
+
+	.tableVertical > tbody > tr > th {
+		display: block;
+		padding: 10px;
+		text-align: left;
+	}
+
+	.tableVertical > tbody > tr > td {
+		display: block;
+		padding: 10px 0;
+	}
+
+	.pc {
+		display: none;
+	}
+
+	.project_select > .project {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.layoutCenter.dashboard {
+		grid-template-columns: auto;
+		grid-template-rows: repeat(2, auto);
+		grid-gap: 10px;
+		padding: 10px;
+	}
+
+	.layoutCenter.dashboard > div:not(:last-child) {
+		border: 0;
+	}
+
+	#welease > .target > select.servers {
+		height: 50px;
+	}
+
+	#welease > .contentArea {
+		grid-template-rows: auto 1fr auto 400px;
+	}
+
+	#welease > .contentArea .svn_auth form {
+		display: grid;
+		width: 100%;
+		grid-template-rows: auto(3, auto);
+		grid-gap: 5px;
+	}
+
+	#welease > .contentArea .svn_auth .inputs {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	#welease > .contentArea .svn_auth form .button {
+		margin: 0 auto;
+	}
+
+	#welease > .contentArea .svn_log {
+		padding: 0;
+	}
+
+	#welease > .contentArea .svn_log select.rev {
+		height: 50px;
+	}
+
+	/* board */
+	.tableHorizontal.flexible {
+		display: block;
+	}
+
+	.tableHorizontal.flexible thead {
+		display: none;
+	}
+
+	.tableHorizontal.flexible tbody {
+		display: block;
+	}
+
+	.tableHorizontal.flexible tbody tr {
+		display: grid; 
+		width: 100%;
+		margin: 10px 0;
+		padding: 5px;
+		border: solid 1px var(--table-border-strong-color);
+		border-radius: 10px;
+		grid-template-columns: repeat(auto-fill, auto);
+	}
+
+	.tableHorizontal.flexible tbody tr td {
+		padding: 5px;
+		text-align: left;
+		border: 0;
+		order: 1;
+	}
+
+	.tableHorizontal.flexible tbody tr td.date {
+		order: 2;
+		text-align: right;
+	}
+
+	.tableHorizontal.flexible tbody tr td.left {
+		order: 3;
+		margin-top: 5px;
+		grid-column: span 3;
+		border-radius: 5px;
+		background-color: var(--table-th-background-color);
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.gnb > .gnb_items >  .menu {
+		display: grid;
+		grid-template-columns: repeat(4, auto);
+	}
+
+	.leftArea > fieldset.m_half {
+		grid-column: span 2;
+	}
+
+	.bottom {
+		padding: 5px;
+	}
+
+	.button_block {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.project_select > .project {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}

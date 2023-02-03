@@ -1,0 +1,19 @@
+.darkmode {
+	--point-color: rgb(29, 155, 240);
+	--main-background-color: #242b38;
+	--highlight-color: rgba(29, 155, 240, .5);
+	--blurry-font-color: #666;
+	--main-font-color: #fff;
+
+	--table-caption-color: #eee;
+	--sidebar-color: #202734;
+	--table-border-strong-color: #2c455f;
+	--table-border-color: #253a50;
+	--table-border-top-color: #eee;
+	--table-th-background-color: #272f3f;
+	--buttonset-color: #343b48;
+	--button-background-color: #2c455f;
+	--button-ok-background-color: rgb(29, 155, 240);
+	--button-no-background-color: #fff;
+	--input-background-color: rgb(39, 51, 64);
+}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@toast-ui/editor": "^3.2.1",
+    "simplemde": "^1.11.2"
+  }
+}

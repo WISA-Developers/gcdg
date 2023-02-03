@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>기본에 충실하고 디테일에 강해지자</title>
+        <meta title="기본에 충실하고 디테일에 강해지자">
+        <meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes, target-densitydpi=device-dpi, viewport-fit=cover"
+        >
+
+        <link rel="stylesheet" type="text/css" href="/resource/styles/style.css">
+		<link rel="stylesheet" type="text/css" href="/resource/styles/style.mobile.css">
+		<link rel="stylesheet" type="text/css" href="/resource/styles/style.darkmode.css">
+		<link rel="stylesheet" type="text/css" href="/resource/styles/pagination.css">
+		<!-- xeicon -->
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">	
+		<!-- toastui-editor -->
+		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css">
+		<link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/theme/toastui-editor-dark.min.css">
+		<link rel="stylesheet" href="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.23.0/themes/prism.min.css">
+		<!-- jquery -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/redmond/theme.min.css">
+		<style>
+		[v-cloak] { 
+			display: none !important; 
+		}			
+		</style>
+		
+		<!-- jquery -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+		<!-- vue -->
+        <script src="/resource/js/vue.js"></script>
+		<script src="https://unpkg.com/vue-router@4"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue3-sfc-loader"></script>
+		<!-- toastui-editor -->
+		<script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+		<script src="https://uicdn.toast.com/editor-plugin-code-syntax-highlight/latest/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
+		<!-- gcdg -->
+		<script src="/resource/js/script.js"></script>
+    </head>
+    <body>
+		<div id="app" v-cloak>
+			<div class="gnb">
+				<div class="logo"><router-link to="/project/select">GCDG</a></div>
+				<div class="gnb_items">
+					<ul class="menu">
+						<li v-if="staff.current_project_idx"><router-link to="/dashboard">dashboard</li>
+						<li v-if="staff.current_project_idx"><router-link to="/issue">issue</li>
+						<li v-if="staff.current_project_idx"><router-link to="/schedule">schedule</li>
+						<li v-if="staff.current_project_idx"><router-link to="/explorer">explorer</li>
+						<li v-if="staff.current_repository"><router-link to="/repository">repository</li>
+						<li v-if="staff.current_project_idx == 1" ><router-link to="/welease">welease</li>
+						<li v-if="staff.current_project_idx"><router-link to="/project">project</li>
+					</ul>
+					<div v-if="staff.staff_idx" class="user" @click="mypage" style="cursor: pointer">
+						<div><img :src="'/api/staff/portrait/'+staff.staff_idx"></div>
+						<div style="color: #fff; margin-left: 10px;">{{ staff.name }}</div>
+					</div>
+				</div>
+			</div>
+			<router-view v-slot="{ Component }">
+				<component :is="Component" :me="staff" ref="content" />
+			</router-view>
+		</div>
+		<script>
+		if (window.localStorage.getItem('site-darkmode') == 'Y') {
+			document.querySelector('body').classList.add('darkmode');
+		}
+
+		const current_project_idx = window.localStorage.getItem('current_project_idx');
+		fetch('/api/staff/me?current_project_idx='+current_project_idx)
+			.then((response) => response.json())
+			.then((me) => {
+
+				// 로그인
+				if (me.status != 'success') {
+					if ((new URL(location.href)).host == 'gcdg.zardsama.net') {
+						location.href = '/testlogin.php';
+					} else {
+						location.href = 'https://wep2.wisa.co.kr/login?login_url=issue';
+					}
+					return;
+				}
+
+				// 설정
+				window.sessionStorage.setItem('token', me.token);
+
+				const routes = [
+					{path: '/', component: () => loadModule('/dashboard/index.vue', options), alias: '/dashboard'},
+					{path: '/issue', component: () => loadModule('/issue/index.vue', options)},
+					{path: '/issue/view/:idx', component: () => loadModule('/issue/view.vue', options)},
+					{path: '/issue/ticket', component: () => loadModule('/issue/ticket.vue', options)},
+					{path: '/issue/ticket/:idx', component: () => loadModule('/issue/ticket.vue', options)},
+					{path: '/schedule', component: () => loadModule('/schedule/index.vue', options)},
+					{path: '/repository', component: () => loadModule('/repository/index.vue', options)},
+					{path: '/repository/:rev', component: () => loadModule('/repository/diff.vue', options)},
+					{path: '/explorer', component: () => loadModule('/explorer/index.vue', options)},
+					{path: '/welease', component: () => loadModule('/welease/index.vue', options)},
+					{path: '/project', component: () => loadModule('/project/list.vue', options)},
+					{path: '/project/create', component: () => loadModule('/project/create.vue', options)},
+					{path: '/project/create/:idx', component: () => loadModule('/project/create.vue', options)},
+					{path: '/project/select', component: () => loadModule('/project/select.vue', options)},
+					{path: '/mypage', component: () => loadModule('/mypage/index.vue', options)}
+				];
+
+				const router = VueRouter.createRouter({
+					history: VueRouter.createWebHashHistory(),
+					// stringifyQuery: (r) => {},
+					routes,
+				});
+
+				const app = Vue.createApp({
+					provide: {
+						define_config: me.define,
+						staff_snapshot: me.staff_snapshot,
+						current_project: {
+							idx: me.staff.current_project_idx,
+							name: me.staff.current_project_name,
+							repository: me.staff.current_repository,
+						}
+					},
+					data() {
+						return {
+							staff: me.staff
+						}
+					},
+					watch: {
+						$route(to, from) {
+							this.hashchanged();
+						}
+					},
+					methods: {
+						hashchanged: function() {
+							if (typeof this.$refs.content.hashchanged == 'function') {
+								this.$refs.content.hashchanged();
+							}
+						},
+						mypage: function() {
+							router.push({
+								path: '/mypage'
+							});
+						}
+					},
+					created: function() {
+						window.sessionStorage.setItem('token', me.token);
+					}
+				});
+				app.use(router);
+				app.mount('#app');
+			});
+		</script>
+   </body>
+</html>
