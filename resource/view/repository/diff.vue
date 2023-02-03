@@ -1,6 +1,6 @@
 <template>
     <div class="layoutCenter">
-        <h2 class="title" style="position: relative; ">
+        <h2 class="title has_buttons" style="position: relative; ">
             <i class="xi-cloud-upload xi-1x"></i> {{ message }}
             <div class="buttons">
                 <a href="#" @click.stop.prevent="setDesignMode('')" :class="{on: rendererName==''}"><i class="xi-layout-full-o"></i></a>

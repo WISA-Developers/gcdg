@@ -38,12 +38,16 @@ input[type=text], input[type=password] {
 h2.title {
 	position: relative;
 	margin: 0;
-	padding: 10px 55px 10px 0;
+	padding: 10px 0 10px 0;
 	text-align: left;
 	font-weight: 700;
 	color: var(--table-caption-color);
 	font-size: 1.5em;
 	word-break: break-all;
+}
+
+h2.title.has_buttons {
+	padding-right: 60px;
 }
 
 a {
