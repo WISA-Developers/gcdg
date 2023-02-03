@@ -62,7 +62,7 @@
 				</div>
 			</div>
 			<router-view v-slot="{ Component }">
-				<component :is="Component" :me="staff" ref="content" />
+				<component :is="Component" :me="staff" ref="content" @project-select="projectSelect" />
 			</router-view>
 		</div>
 		<script>
@@ -115,14 +115,9 @@
 				const app = Vue.createApp({
 					provide: {
 						define_config: me.define,
-						staff_snapshot: me.staff_snapshot,
-						current_project: {
-							idx: me.staff.current_project_idx,
-							name: me.staff.current_project_name,
-							repository: me.staff.current_repository,
-						}
+						staff_snapshot: me.staff_snapshot
 					},
-					data() {
+					data: function() {
 						return {
 							staff: me.staff
 						}
@@ -142,6 +137,20 @@
 							router.push({
 								path: '/mypage'
 							});
+						},
+						projectSelect: function(project_idx) {
+							window.localStorage.setItem('current_project_idx', project_idx);
+							api('/api/staff/me?current_project_idx=' + project_idx)
+								.then((me) => {
+									this.staff = me.staff;
+									if (this.$router.currentRoute.value.path == '/dashboard') {
+										//router.go(0);
+									} else {
+										this.$router.push({
+											path: '/dashboard'
+										});
+									}
+								});
 						}
 					},
 					created: function() {

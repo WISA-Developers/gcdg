@@ -1,23 +1,18 @@
 <template>
 	<div id="dashboard">
-		<project v-if="!staff.current_project_idx" @set-Current-Project-Idx="setProjectIdx"></project>
-		<dashboard v-if="staff.current_project_idx"></dashboard>
+		<project v-if="!me.current_project_idx" @project-select="projectSelect"></project>
+		<dashboard v-if="me.current_project_idx" :me="me"></dashboard>
 	</div>
 </template>
 
 <script>
 export default {
-	data: function() {
-		return {
-			staff: this.me
-		}
-	},
 	props: {
 		me: Array
 	},
 	methods: {
-		setProjectIdx: function(idx) {
-			this.staff.current_project_idx = idx;
+        projectSelect: function(project_idx) {
+            this.$emit('project-select', project_idx)
 		}
 	},
 	components: {

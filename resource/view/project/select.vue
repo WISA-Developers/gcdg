@@ -36,8 +36,9 @@ export default {
         {
 			api('/api/project/select/'+project.idx)
                 .then((res) => {
-                    window.localStorage.setItem('current_project_idx', res.project_idx);
-                    location.href = '/';
+                    if (res.status == 'success') {
+                        this.$emit('project-select', res.project_idx);
+                    }
                 });
         }
     },

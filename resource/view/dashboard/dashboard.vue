@@ -1,7 +1,7 @@
 <template>
 	<div class="layoutCenter dashboard">
         <today></today>
-		<repository v-if="current_project.repository"></repository>
+		<repository v-if="me.current_repository"></repository>
 	</div>
 </template>
 
@@ -31,7 +31,9 @@
 
 <script>
 export default {
-	inject: ['current_project'],
+    props: {
+        me: Array
+    },
     components: {
         'today': Vue.defineAsyncComponent(() => loadModule('/resource/view/schedule/today.vue', options)),
 		'repository': Vue.defineAsyncComponent(() => loadModule('/resource/view/repository/today.vue', options))
