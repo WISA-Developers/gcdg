@@ -61,7 +61,11 @@ function api(url, method, param) {
 				window.alert(res.message);
 
 				if (res.code == '9999') { // 인증 오류
-					location.href = '/';
+					if ((new URL(location.href)).host == 'gcdg.zardsama.net') {
+						location.href = '/testlogin.php';
+					} else {
+						location.href = 'https://wep2.wisa.co.kr/login?login_url=issue';
+					}
 					return false;
 				}
 			}

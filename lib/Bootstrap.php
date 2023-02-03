@@ -3,6 +3,7 @@
 namespace Wisa\Gcdg;
 
 use Pecee\Pixie\Connection as DBcon;
+use Wisa\Gcdg\App;
 use Wisa\Gcdg\App\File;
 use Wisa\Gcdg\Exceptions\CommonException;
 use Wisa\Gcdg\Exceptions\FileNotFoundException;
@@ -87,6 +88,11 @@ class Bootstrap {
         $method = $parsed_uri->getMethodName();
 
         if (class_exists($classname)) {
+            if ($classname != 'staff' && $method != 'me') {
+                $api = new App(self::dbcon(), $GLOBALS['config']);
+                $api->currentStaffIdx();
+            }
+
             $app = new $classname(self::dbcon(), $GLOBALS['config']);
             if (method_exists($app, $method)) {
                 $app->$method($parsed_uri);

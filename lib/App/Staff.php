@@ -36,7 +36,7 @@ class Staff extends App {
         $current_project_idx = $parsedURI->getParameter('current_project_idx', 0);
 
         if (!$staff_idx) {
-            throw new CommonException('로그인해주세요.');
+            throw new CommonException('로그인해주세요.', 9999);
         }
 
         if (!isset($_REQUEST['token'])) {
@@ -190,7 +190,7 @@ class Staff extends App {
         }
         if (!is_writable($snapshot)) {
             throw new CommonException('사원 정보 캐시 오류');
-        }        
+        }
         $snapshot_mtime = filemtime($snapshot);
         if (time()-$snapshot_mtime > 7200) {
             $staffs = self::all();

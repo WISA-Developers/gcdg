@@ -6,6 +6,14 @@ use Wisa\Gcdg\Exceptions\CommonException;
 
 class App {
 
+    protected $db;
+    protected $config;
+
+    public function __construct($db, $config)
+    {
+        $this->db = $db;
+        $this->config = $config;
+    }
 
     /**
      * API 결과를 출력하고 세션을 종료한다.
@@ -62,7 +70,7 @@ class App {
 
             if ($data) return $data->staff_idx;
 
-            throw new CommonException('API키가 정확하지 않습니다.', 9999);
+            throw new CommonException('API키가 만료되었거나 정확하지 않습니다.', 9999);
         }
 
         throw new CommonException('인증되지 않은 사용자입니다.', 9999);
