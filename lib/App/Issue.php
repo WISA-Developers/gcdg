@@ -197,6 +197,8 @@ class Issue extends App {
                 $data->staffs[] = $_staffs[$_staff_idx];
             }
             unset($data->staffs_all);
+
+            $data->creater = $_staffs[$data->creater_idx];
         }
 
         $this->output([

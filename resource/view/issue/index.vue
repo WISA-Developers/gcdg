@@ -96,6 +96,7 @@
 				<colgroup>
 						<col style="width:110px;">
 						<col style="width:70px">
+                        <col style="width:70px">
 						<col>
 						<col style="width:250px">
 				</colgroup>
@@ -103,6 +104,7 @@
 				<tr>
 					<th>작성일시</th>
 					<th>처리상태</th>
+                    <th>작성자</th>
 					<th>제목</th>
 					<th>담당자</th>
 				</tr>
@@ -113,6 +115,7 @@
 						{{ data.registerd }}
 					</td>
 					<td>{{ data.status.value }}</td>
+                    <td>{{ data.creater.name }}</td>
 					<td class="left" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
 						<a href="#" @click.stop.prevent="view(data.idx)">
 							<span :class="{'xi-star': true, ['importance_'+data.importance]: true, 'attr_icon': true}">{{ data.importance }}</span>
