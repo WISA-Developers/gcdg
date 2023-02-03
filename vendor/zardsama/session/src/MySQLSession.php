@@ -53,7 +53,7 @@ class MySQLSession extends SessionHandler
         {
             $result = $this->db->query("
                 update ".SELF::TABLE." set
-                    accesstime=now(), data=?, page=?
+                    accesstime=unix_timestamp(), data=?, page=?
                     where session_id='$id'
             ", array(
                 $data, $_SERVER['REQUEST_URI']
@@ -61,7 +61,7 @@ class MySQLSession extends SessionHandler
         } else {
             $result = $this->db->query("
                 insert into ".SELF::TABLE." (session_id, data, remote_addr, page, reg_date, accesstime)
-                values ('$id', ?, ?, ?, now(), now())"
+                values ('$id', ?, ?, ?, unix_timestamp(), unix_timestamp())"
             , array(
                 $data, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI']
             ));
