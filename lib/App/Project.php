@@ -25,7 +25,7 @@ class Project extends App {
     public function select(ParsedURI $parsed_uri)
     {
         $project_idx = (int) $parsed_uri->getParameter('args2');
-        if ($this->projectPermission('admin,project_main,member', $project_idx)) {
+        if ($this->projectPermission('admin,project_main,member,developer', $project_idx)) {
             $_SESSION['current_project_idx'] = $project_idx;
 
             $this->output([
