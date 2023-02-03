@@ -32,6 +32,7 @@ abstract class SessionHandler
         preg_match('/(?:http[s]*\:\/\/)*(.*?)\.(?=[^\/]*\..{2,5})/i', $_SERVER['HTTP_HOST'], $match);
         $this->cookie_domain = preg_replace('/^'.preg_quote($match[1]).'/', '', $_SERVER['HTTP_HOST']);
 
+        session_name('ep_session');
         session_set_cookie_params([
             'lifetime' => 0,
             'path' => '/',
