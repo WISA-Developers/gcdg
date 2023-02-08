@@ -10,6 +10,7 @@ require 'vendor/autoload.php';
 define('__HOME_DIR__', __DIR__);
 define('__INIT_DIR__', realpath(__DIR__.'/init'));
 define('__RES_DIR__', realpath(__DIR__.'/resource'));
+define('__URL__', (isset($_SERVER['HTTPS']) ? "https" : "http").'://'.$_SERVER['HOST']);
 
 // config
 $config = json_decode(rtrim(ltrim(file_get_contents('init/config.json.php'),'<?php'), '?>'));

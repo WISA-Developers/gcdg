@@ -2,6 +2,7 @@
 
 namespace Wisa\Gcdg;
 
+use Wisa\Gcdg\weagleEyeClientMini;
 use Wisa\Gcdg\Exceptions\CommonException;
 
 class App {
@@ -228,5 +229,14 @@ class App {
             ]);
 
         return $token;
+    }
+
+    protected function weagleEye()
+    {
+        return new weagleEyeClientMini([
+            'wm_key_code' => '',
+            'api_key' => '',
+            'account_idx' => '0'
+        ], 'Wservice');
     }
 }

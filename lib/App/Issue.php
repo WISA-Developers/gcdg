@@ -419,8 +419,25 @@ class Issue extends App {
         }
 
         // 담당자 저장
+        $new_staffs = [];
         foreach(['planner', 'designer', 'publisher', 'developer', 'tester', 'referer'] as $role) {
-            $this->setRole($role, $idx, $_POST[$role] ?? []);
+            $_new = $this->setRole($role, $idx, $_POST[$role] ?? []);
+            if (count($_new) > 0) {
+                $new_staffs = array_merge($new_staffs, $_new);
+            }
+        }
+
+        // 담당자 지정 알림 발송
+        if (count($new_staffs) > 0) {
+            array_unique($new_staffs);
+
+            $this->weagleEye()->call('sendWisaHelper', [
+                'args1' => implode('@', $new_staffs),
+                'args2' => "[Issue Tracker] 이슈에 멘션되었습니다.\n\n- {$data['title']}",
+                'args3' => 'cs',
+                'args4' => '@@type=link@@link_text=이슈 확인@@link_url='.__URL__.'/#/issue/view/'.$idx,
+                'args7' => 'utf8'
+            ]);
         }
 
         // 사용/미사용 이미지 마킹
@@ -440,6 +457,7 @@ class Issue extends App {
             ->where('issue_idx', '=', $issue_idx)
             ->where('role', $role);
 
+        $new_staffs = [];
         if (is_array($list) && count($list) > 0) {
             $remove->whereNotIn('staff_idx', $list)->delete();
 
@@ -452,16 +470,19 @@ class Issue extends App {
                     'registerd' => $this->db->raw('now()')
                 ];
 
-                $this->db
+                $idx = $this->db
                     ->table('issue_staff')
                     ->onDuplicateKeyUpdate($data)
                     ->insert($data);
+                if ($idx) {
+                    array_push($new_staffs, $staff_idx);
+                }
             }
         } else {
             $remove->delete();
         }
 
-        return count($list);
+        return $new_staffs;
     }
 
     public function setStatus(ParsedURI $parsed_uri) {
