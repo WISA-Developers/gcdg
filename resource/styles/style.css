@@ -104,6 +104,10 @@ blockquote {
 	text-align: justify;
 }
 
+span.token.operator {
+	background-color: transparent;
+}
+
 /* gnb */
 .gnb {
 	display: flex;

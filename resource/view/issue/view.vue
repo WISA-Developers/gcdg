@@ -296,6 +296,9 @@
 </template>
 
 <script type="module">
+const { Editor } = toastui;
+const { codeSyntaxHighlight } = Editor.plugin;
+
 export default {
 	inject: ['define_config'],
 	setup: function() {
@@ -364,6 +367,7 @@ export default {
 							el: document.querySelector('#viewer'),
 							viewer: true,
 							initialValue: this.data.content.toString(),
+							plugins: [codeSyntaxHighlight],
 							theme: (window.localStorage.getItem('site-darkmode') == 'Y') ? 'dark' : 'basic'
 						});
 
