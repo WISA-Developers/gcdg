@@ -1,6 +1,6 @@
 <template>
 	<div class="layoutCenter dashboard">
-        <today></today>
+        <today :me="me"></today>
 		<repository v-if="me.current_repository"></repository>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
     <div class="schedules">
-        <h2 class="title"><i class="xi-calendar-check xi-1x"></i> 오늘의 업무</h2>
+        <h2 class="title"><i class="xi-calendar-check xi-1x"></i> '{{ me.current_project_name }}' 오늘의 업무</h2>
         <div v-if="!this.loading" v-for="staff in list">
             <h3><span class="portrait"><img :src="staff.portrait"></span> {{ staff.name }}</h3>
             <ul>
@@ -21,6 +21,9 @@
 
 <script>
 export default {
+    props: {
+        me: Array
+    },
     setup: function() {
         return Vue.reactive({
             list: [],
