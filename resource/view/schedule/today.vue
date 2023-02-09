@@ -13,7 +13,7 @@
             </ul>
         </div>
 
-        <div v-if="list.length == 0" class="nodata loading">
+        <div v-if="list.length == 0" :class="{nodata: true, loading: this.loading}">
             <i class="xi-info xi-1x"></i> 오늘의 업무가 없습니다.
         </div>
     </div>
