@@ -341,16 +341,22 @@ class Issue extends App {
             throw new CommonException($validator->firstError());
         }
 
+        if (!$this->currentProjectIdx()) {
+            throw new CommonException('프로젝트를 선택해주세요.');
+        }
+
         $data = [
+            'project_idx' => $this->currentProjectIdx(),
             'title' => $_POST['title'],
             'work_type' => $_POST['work_type'],
             'status' => $_POST['status'],
-            'plan_s' => $_POST['plan_s'],
-            'plan_e' => $_POST['plan_e'],
+            'plan_s' => $_POST['plan_s'] ?? '',
+            'plan_e' => $_POST['plan_e'] ?? '',
             'permission' => $_POST['permission'],
             'importance' => $_POST['importance'],
             'content' => $_POST['content'] ?? '',
-            'modified' => $this->db->raw('now()')
+            'modified' => $this->db->raw('now()'),
+            'wep_idx' => $_POST['wep_idx'] ?? 0
         ];
 
         if (isset($_POST['device']) && is_array($_POST['device'])) {
@@ -441,7 +447,7 @@ class Issue extends App {
         }
 
         // 사용/미사용 이미지 마킹
-        (new File($this->db, $this->config))->activeByMarkDown($idx, $_POST['hash'], $_POST['content']);
+        (new File($this->db, $this->config))->activeByMarkDown($idx, $data['hash'], $data['content']);
 
         $this->output([
             'status' => 'success',

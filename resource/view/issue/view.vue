@@ -18,7 +18,7 @@
 					<i v-if="data.work_type=='E'" class="xi-plus-circle-o xi-1x"></i>
 					<i v-if="data.work_type=='B'" class="xi-bug xi-1x"></i>
 					{{ data.title }}
-					<i v-if="data.wep_idx" class="xi-share"> from wep</i>
+					<i v-if="data.wep_idx" class="xi-share"> <a href="#" @click.stop.prevent="goWep(data.wep_idx)">from wep</a></i>
 				</h2>
 				<table class="table tableVertical">			
 					<colgroup>
@@ -524,7 +524,11 @@ export default {
                     floating(ret.message);
                     this.reload();
                 });
-        }
+        },
+		goWep: function(idx)
+		{
+			window.open('https://wep.wisa.co.kr/customer/detail?customer_idx='+idx)
+		}
 	},
 	beforeMount: function() {
         // 이전 리스트 주소
