@@ -43,6 +43,24 @@
 				></staffs_search>
 			</fieldset>
 
+            <fieldset>
+                <legend>그룹</legend>
+                <ul>
+                    <li>
+                        <label>
+                            <input type="radio" :value="" v-model="search.group_idx">
+                            전체
+                        </label>
+                    </li>
+                    <li v-for="group in group_info">
+                        <label>
+                            <input type="radio" :value=group.idx v-model="search.group_idx">
+                            {{ group.name }}
+                        </label>
+                    </li>
+                </ul>
+            </fieldset>
+
 			<fieldset>
 				<legend>내용</legend>
 				<div class="m_half">
@@ -118,6 +136,7 @@ export default {
 				work_type: [],
 				status: [],
 				role: [],
+                group_idx: '',
 				title: '',
 				content: '',
 				importance: 0
@@ -134,6 +153,7 @@ export default {
 			calday: null,
 			plans: null,
 			issue_week_offset: null,
+            group_info: [],
 			vertical: window.localStorage.getItem('calendar-vertical'),
 		}
 	},
@@ -193,6 +213,7 @@ export default {
 					this.issue_count = ret.issue_count;
 					this.plans = ret.plans;
 					this.issue_week_offset = ret.issue_week_offset;
+                    this.group_info = ret.group_info;
 					this.calday = this.getCalday(ret.ym);
 					this.ym = ret.ym;
 			

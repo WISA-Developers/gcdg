@@ -37,11 +37,18 @@ class Schedule extends App {
         $qry = $this->db
             ->table(['issue_schedule' => 's'])
             ->join(['issue', 'i'], 'i.idx', '=', 's.issue_idx')
+            ->join(['issue_staff', 'is'], 'is.idx', '=', 's.role_idx')
+            ->join(['ep.staff_group', 'sg'], 'sg.staff_idx', '=', 'is.staff_idx')
+            ->join(['ep.staff_group_info', 'sgi'], 'sgi.idx', '=', 'sg.staff_group_info_idx')
             ->select([
-                'i.project_idx', 's.issue_idx', 's.schedule_type', 's.schedule_date', 'i.title', 'i.status',
+                'i.project_idx', 's.issue_idx', 's.schedule_type', 's.schedule_date',
+                'i.title', 'i.status',
+                'sg.staff_group_info_idx' => 'group_idx',
                 $this->db->raw('group_concat(s.schedule_type) as types')
             ])
-            ->whereBetween('schedule_date', $s, $e);
+            ->whereBetween('schedule_date', $s, $e)
+            ->where('sg.staff_group_type', '2')
+            ->where('sg.deleted', '2');
 
         // 검색
         $project_range = $parsed_uri->getParameter('project_range');
@@ -61,6 +68,8 @@ class Schedule extends App {
             $qry->join(['issue_staff', 's2'], 'i.idx', '=', 's2.issue_idx');
             $qry->whereIn('s2.staff_idx', is_array($role) ? $role : explode(',', $role));
         }
+        $group_idx = $parsed_uri->getParameter('group_idx');
+        if ($group_idx) $qry->whereIn('sg.staff_group_info_idx', explode(',', $group_idx));
 
         $plans = $issue_offset = $issue_week_offset = [];
         $res = $qry->groupby('s.schedule_date')
@@ -95,6 +104,17 @@ class Schedule extends App {
             array_push($plans[$plan->schedule_date], $plan);
         }
 
+        // 그룹 정보
+        $group_info = $this->db
+            ->table('ep.staff_group_info')
+            ->select(['idx', 'name'])
+            ->where('type', '2')
+            ->where('stat', '2')
+            ->where('idx', '!=', '131')
+            ->where('deleted', '2')
+            ->orderBy('sort', 'asc')
+            ->get();
+
         $this->output([
             'ym' => $ym,
             'lastday' => $last_day,
@@ -102,7 +122,8 @@ class Schedule extends App {
             'calend' => $calend,
             'issue_count' => count($issue_offset),
             'plans' => $plans,
-            'issue_week_offset' => $issue_week_offset
+            'issue_week_offset' => $issue_week_offset,
+            'group_info' => $group_info
         ]);
     }
 
