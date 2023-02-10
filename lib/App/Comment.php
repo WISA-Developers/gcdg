@@ -58,7 +58,7 @@ class Comment extends App {
 
         $res = $qry
             ->select(['idx', 'creater_idx', 'content', 'registerd'])
-            ->orderBy('idx', 'ASC')
+            ->orderBy('idx', 'DESC')
             ->limit($limit)
             ->offset(($page-1)*$limit)
             ->get();

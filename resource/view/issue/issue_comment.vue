@@ -142,7 +142,7 @@ export default {
 
 						this.page = ret.page;
 						this.paginator = ret.paginator;
-						this.comments = ret.data;
+						this.comments = ret.data.reverse();
 
 						this.$emit('get-data', 'component_comment_count', ret.count);
 					}
