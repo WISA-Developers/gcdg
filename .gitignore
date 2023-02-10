@@ -5,3 +5,10 @@ init/staff_snapshot.json
 resource/files
 resource/repository/
 testlogin.php
+.bash_history
+.cache/
+.config/
+.git-credentials
+.gitconfig
+.lesshst
+.local/
