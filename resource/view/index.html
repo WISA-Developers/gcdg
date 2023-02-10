@@ -71,7 +71,8 @@
 		}
 
 		const current_project_idx = window.localStorage.getItem('current_project_idx');
-		fetch('/api/staff/me?current_project_idx='+current_project_idx)
+		const token  = window.sessionStorage.getItem('token') || '';
+		fetch('/api/staff/me?current_project_idx='+current_project_idx+'&token='+token)
 			.then((response) => response.json())
 			.then((me) => {
 

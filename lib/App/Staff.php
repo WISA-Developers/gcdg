@@ -39,9 +39,7 @@ class Staff extends App {
             throw new CommonException('로그인해주세요.', 9999);
         }
 
-        if (!isset($_REQUEST['token'])) {
-            $_REQUEST['token'] = $this->createAPIKey('token', $staff_idx);
-        }
+        $_REQUEST['token'] = $this->createAPIKey('token', $staff_idx);
 
         $staff = $this->ep
             ->table(['staff' => 's'])
