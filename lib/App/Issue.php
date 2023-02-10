@@ -346,7 +346,6 @@ class Issue extends App {
         }
 
         $data = [
-            'project_idx' => $this->currentProjectIdx(),
             'hash' => $_POST['hash'],
             'title' => $_POST['title'],
             'work_type' => $_POST['work_type'],
@@ -377,6 +376,7 @@ class Issue extends App {
             if (!$issue) {
                 throw new CommonException('존재하지 않는 이슈입니다.');
             }
+            $data['project_idx'] = $issue->project_idx;
             if ($issue->creater_idx != $this->currentStaffIdx()) {
                 if (!$this->issuePermission('write', $issue)) {
                     throw new CommonException('수정 권한이 없습니다.');
@@ -427,7 +427,7 @@ class Issue extends App {
         // 담당자 저장
         $new_staffs = [];
         foreach(['planner', 'designer', 'publisher', 'developer', 'tester', 'referer'] as $role) {
-            $_new = $this->setRole($role, $idx, $_POST[$role] ?? []);
+            $_new = $this->setRole($role, $idx, $data['project_idx'], $_POST[$role] ?? []);
             if (count($_new) > 0) {
                 $new_staffs = array_merge($new_staffs, $_new);
             }
@@ -456,7 +456,7 @@ class Issue extends App {
 
     }
 
-    private function setRole(String $role, int $issue_idx, Array $list)
+    private function setRole(String $role, int $issue_idx, int $project_idx, Array $list)
     {
         $remove = $this->db
             ->table('issue_staff')
@@ -469,7 +469,7 @@ class Issue extends App {
 
             foreach ($list as $staff_idx) {
                 $data = [
-                    'project_idx' => $this->currentProjectIdx(),
+                    'project_idx' => $project_idx,
                     'issue_idx' => $issue_idx,
                     'staff_idx' => $staff_idx,
                     'role' => $role,
