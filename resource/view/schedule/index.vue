@@ -239,19 +239,32 @@ export default {
 			const day = (cell-this.calstart+1);
 			return (day > 0 && this.lastday >= day) ? day : '';
 		},
-		getPlan(data)
+		getPlan(cal)
 		{
-			if (!data.date) return;
-			if (!this.plans[data.date]) return;
+			if (!cal.date) return;
 
-			const st = this.issue_week_offset[this.plans[data.date][0].week_no][0];
-			const ed = this.issue_week_offset[this.plans[data.date][0].week_no][1];
-			let   plan = [];
-			for (let o = st; o <= ed; o++) {
-				plan[o-st] = [];
-				this.plans[data.date].forEach(function(data) {
-					if (data.issue_offset == o) {
-						plan[o-st] = data;
+            // 매 주마다 시작 시 배치 순서 초기화
+            if (!this.lastweek || this.lastweek > cal.week) {
+                this.cal_line = []; // 해당 주간 내에 존재하는 issue_offset(이슈 순서)
+            }
+            this.lastweek = cal.week;
+
+			if (!this.plans[cal.date]) return;
+
+            // 셀 내 스케쥴 배치 순서 및 간격 유지
+            this.plans[cal.date].forEach((data) => {
+                if (!this.cal_line.includes(data.issue_offset)) {
+                    this.cal_line.push(data.issue_offset);
+                }
+            });
+
+            // 셀에 일정 배치
+            let   plan = [];
+            for (let line in this.cal_line)  {
+				plan[line] = [];
+				this.plans[cal.date].forEach((data) => {
+					if (data.issue_offset == this.cal_line[line]) {
+						plan[line] = data;
 					}
 				});
 			}
