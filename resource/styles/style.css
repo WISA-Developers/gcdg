@@ -1113,6 +1113,7 @@ div.nodata {
 	--cal-sch-13: #9eb8fa;
 	--cal-sch-14: #ffe8fa;
 	--cal-sch-15: #5e88f7;
+	--cal-sch-16: #008000;
 }
 
 /* horizontal */
@@ -1258,8 +1259,13 @@ div.nodata {
 }
 
 .calender > li > div > .plans > li.has_plan.issue_color_15 {
-	background-color: var(--cal-sch-15;
+	background-color: var(--cal-sch-15);
 	color: #000;
+}
+
+.calender > li > div > .plans > li.has_plan.issue_color_16 {
+	background-color: var(--cal-sch-16);
+	color: #fff;
 }
 
 /* vertical */
