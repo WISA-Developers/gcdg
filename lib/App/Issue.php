@@ -347,6 +347,7 @@ class Issue extends App {
 
         $data = [
             'project_idx' => $this->currentProjectIdx(),
+            'hash' => $_POST['hash'],
             'title' => $_POST['title'],
             'work_type' => $_POST['work_type'],
             'status' => $_POST['status'],
@@ -414,7 +415,6 @@ class Issue extends App {
                 throw new CommonException('프로젝트 접근 권한이 없습니다.');
             }
 
-            $data['hash'] = $_POST['hash'];
             $data['registerd'] = $this->db->raw('now()');
             $data['project_idx'] = $this->currentProjectIdx();
             $data['creater_idx'] = $this->currentStaffIdx();
