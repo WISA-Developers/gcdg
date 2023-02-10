@@ -84,7 +84,7 @@ class Schedule extends App {
             }
             $plan->issue_offset = array_search($plan->issue_idx, $issue_offset);
             $plan->week_no = (int) date('W', strtotime($plan->schedule_date));
-            
+
             // 추가
             if (!isset($plans[$plan->schedule_date])) {
                 $plans[$plan->schedule_date] = [];
