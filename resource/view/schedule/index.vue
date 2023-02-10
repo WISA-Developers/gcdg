@@ -152,7 +152,6 @@ export default {
 			issue_count: null,
 			calday: null,
 			plans: null,
-			issue_week_offset: null,
             group_info: [],
 			vertical: window.localStorage.getItem('calendar-vertical'),
 		}
@@ -212,7 +211,6 @@ export default {
 					this.calend = ret.calend;
 					this.issue_count = ret.issue_count;
 					this.plans = ret.plans;
-					this.issue_week_offset = ret.issue_week_offset;
                     this.group_info = ret.group_info;
 					this.calday = this.getCalday(ret.ym);
 					this.ym = ret.ym;

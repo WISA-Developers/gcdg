@@ -71,7 +71,7 @@ class Schedule extends App {
         $group_idx = $parsed_uri->getParameter('group_idx');
         if ($group_idx) $qry->whereIn('sg.staff_group_info_idx', explode(',', $group_idx));
 
-        $plans = $issue_offset = $issue_week_offset = [];
+        $plans = $issue_offset = [];
         $res = $qry->groupby('s.schedule_date')
             ->groupby('s.issue_idx')
             ->orderBy('schedule_date', 'asc')
@@ -84,19 +84,7 @@ class Schedule extends App {
             }
             $plan->issue_offset = array_search($plan->issue_idx, $issue_offset);
             $plan->week_no = (int) date('W', strtotime($plan->schedule_date));
-
-            // 스케쥴표 평탄화 데이터
-            if (!isset($issue_week_offset[$plan->week_no])) {
-                $issue_week_offset[$plan->week_no] = [$plan->issue_offset, $plan->issue_offset];
-            }
-
-            if ($plan->issue_offset < $issue_week_offset[$plan->week_no][0]) {
-                $issue_week_offset[$plan->week_no][0] = $plan->issue_offset;
-            }
-            if ($plan->issue_offset > $issue_week_offset[$plan->week_no][1]) {
-                $issue_week_offset[$plan->week_no][1] = $plan->issue_offset;
-            }
-
+            
             // 추가
             if (!isset($plans[$plan->schedule_date])) {
                 $plans[$plan->schedule_date] = [];
@@ -122,7 +110,6 @@ class Schedule extends App {
             'calend' => $calend,
             'issue_count' => count($issue_offset),
             'plans' => $plans,
-            'issue_week_offset' => $issue_week_offset,
             'group_info' => $group_info
         ]);
     }
