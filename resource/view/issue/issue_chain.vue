@@ -48,8 +48,8 @@
 			<div style="margin: 5px 0">
 				<input type="text" class="input_text input_full" placeholder="검색할 이슈제목을 입력해주세요" @input="searchLink">
 			</div>
-			<div style="height:40vh; overflow: overay">
-				<table id="component_chain" class="table tableHorizontal">
+			<div style="height:40vh; overflow: overlay">
+				<table class="table tableHorizontal">
 					<colgroup>
 						<col style="width: 50px">
 					</colgroup>
