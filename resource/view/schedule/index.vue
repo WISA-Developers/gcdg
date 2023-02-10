@@ -48,7 +48,7 @@
                 <ul>
                     <li>
                         <label>
-                            <input type="radio" :value="" v-model="search.group_idx">
+                            <input type="radio" value="" v-model="search.group_idx">
                             전체
                         </label>
                     </li>
