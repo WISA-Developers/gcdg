@@ -91,7 +91,7 @@
 		</form>
 
 		<div class="contentArea">
-			<h2 class="title"><i class="xi-view-list xi-1x"></i> 이슈 목록</h2>
+			<h2 class="title"><i class="xi-view-list xi-1x"></i> '{{ me.current_project_name }}' 이슈 목록</h2>
 			<table class="table tableHorizontal flexible">
 				<colgroup>
 						<col style="width:110px;">
@@ -160,6 +160,9 @@
 <script>
 export default {	
 	inject: ['define_config', 'staff_snapshot'],
+    props: {
+        'me': Array
+    },
 	setup: function() {
 		return Vue.reactive({
 			search: {
