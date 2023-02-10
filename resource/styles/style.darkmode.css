@@ -17,3 +17,7 @@
 	--button-no-background-color: #fff;
 	--input-background-color: rgb(39, 51, 64);
 }
+
+.description {
+	color: #999;
+}
