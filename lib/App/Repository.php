@@ -38,6 +38,14 @@ class Repository extends App {
         }
 
         $message = $parsed_uri->getParameter('search_str');
+        $type = $parsed_uri->getParameter('args2');
+        if ($type == 'search' && !$message) {
+            $this->output([
+                'status' => 'success',
+                'data' => []
+            ]);
+        }
+
         $limit = $parsed_uri->getParameter('limit', 100);
         $date_s = $parsed_uri->getParameter('date_s', date('Y-m-d', strtotime('-3 month')));
         $date_e = $parsed_uri->getParameter('date_e', date('Y-m-d'));

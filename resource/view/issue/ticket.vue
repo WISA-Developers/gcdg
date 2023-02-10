@@ -129,7 +129,7 @@
 					<td>
 						<repo_search 
 							name="repository" 
-							source="repository/logs" 
+							source="repository/logs/search"
 							:search.sync="data.repository" 
 						></repo_search>
 					</td>
