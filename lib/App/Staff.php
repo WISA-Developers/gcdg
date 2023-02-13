@@ -162,7 +162,7 @@ class Staff extends App {
             ->where('f.tname', '=', 'staff')->first();
 
         if (!$data) {
-            throw new CommonException('staff is not found');
+            return false;
         }
 
         return sprintf(
