@@ -52,7 +52,7 @@ class Schedule extends App {
 
         // 검색
         $project_range = $parsed_uri->getParameter('project_range');
-        if ($project_range) $qry->where('i.project_idx', $project_range);
+        if (!$project_range) $qry->where('i.project_idx', $this->currentProjectIdx());
         $title = $parsed_uri->getParameter('title');
         if ($title) $qry->where('i.title', 'like', '%'.$title.'%');
         $content = $parsed_uri->getParameter('content');

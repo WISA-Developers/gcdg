@@ -4,8 +4,8 @@
 			<fieldset>
 				<legend>프로젝트</legend>
 				<ul class="long">
-					<li><label><input type="radio" value="" v-model="search.project_range"> 전체</label></li>
-					<li><label><input type="radio" :value="me.current_project_idx" v-model="search.project_range"> {{ me.current_project_name }}</label></li>
+					<li><label><input type="radio" value="" v-model="search.project_range"> {{ me.current_project_name }}</label></li>
+                    <li><label><input type="radio" value="ALL" v-model="search.project_range"> 전체</label></li>
 				</ul>
 			</fieldset>
 
