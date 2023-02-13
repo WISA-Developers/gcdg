@@ -435,7 +435,7 @@ class Issue extends App {
 
         // 담당자 지정 알림 발송
         if (count($new_staffs) > 0) {
-            array_unique($new_staffs);
+            $new_staffs = array_unique($new_staffs);
 
             $this->weagleEye()->call('sendWisaHelper', [
                 'args1' => implode('@', $new_staffs),
