@@ -1159,6 +1159,11 @@ div.nodata {
 	font-weight: 700;
 }
 
+
+.calender > li.is_today {
+	border: solid 1px var(--point-color);
+}
+
 .calender > li > div > .plans {
     display: grid;
 	grid-gap: 7px;

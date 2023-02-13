@@ -101,7 +101,7 @@
 			</ul>
 
 			<ul class="calender">
-				<li v-for="data in calday">
+				<li v-for="data in calday" :class="{'is_today': data.is_today}">
 					<div v-if="data.is_date || vertical!='Y'">
 						<div class="day">{{ data.day }}</div>
 						<ul class="plans">
@@ -144,6 +144,11 @@ export default {
 		}
 	},
 	data: function() {
+        const today = new Date();
+        const year = today.getFullYear()
+        const month = datePad(today.getMonth()+1);
+        const day = datePad(today.getDate());
+
 		return {
 			ym: null,
 			lastday: null,
@@ -151,6 +156,7 @@ export default {
 			calend: null,
 			issue_count: null,
 			calday: null,
+            today: year+'-'+month+'-'+day,
 			plans: null,
             group_info: [],
 			vertical: window.localStorage.getItem('calendar-vertical'),
@@ -241,7 +247,8 @@ export default {
 					date: date,
 					day: fullday,
 					week: week,
-					is_date: (date)
+					is_date: (date),
+                    is_today: (date == this.today)
 				});
 
 				if (week == 5) {
