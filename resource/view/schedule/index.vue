@@ -107,7 +107,8 @@
 						<ul class="plans">
 							<li
 								v-for="plan in getPlan(data)" 
-								:class="{['issue_color_'+plan.issue_offset]: true, has_plan: plan.issue_idx > 0}"
+								:class="{has_plan: plan.issue_idx > 0}"
+								:style="{'background-color': 'var(--cal-sch-'+plan.issue_offset+')'}"
 								@click="openIsuue(plan.issue_idx)"
 							>
 								{{ plan.title }}&nbsp;

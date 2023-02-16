@@ -1097,23 +1097,28 @@ div.nodata {
 
 /* schedule */
 :root {
-	--cal-sch-0: #ff6699;
+    --cal-sch-0: #ff99cc;
 	--cal-sch-1: #ccccff;
 	--cal-sch-2: #ccff99;
-	--cal-sch-3: #ffcc66;
-	--cal-sch-4: #33ccff;
-	--cal-sch-5: #ff6600;
-	--cal-sch-6: #ffff88;
-	--cal-sch-7: #99cccc;
-	--cal-sch-8: #bfdfdf;
-	--cal-sch-9: #ecd9e9;
-	--cal-sch-10: #dfeef9;
-	--cal-sch-11: #defed8;
-	--cal-sch-12: #cccc99;
-	--cal-sch-13: #9eb8fa;
-	--cal-sch-14: #ffe8fa;
-	--cal-sch-15: #5e88f7;
-	--cal-sch-16: #008000;
+	--cal-sch-3: #ffe3aa;
+	--cal-sch-4: #66ccff;
+	--cal-sch-5: #ffc6c7;
+	--cal-sch-6: #ffffaa;
+	--cal-sch-7: #d3f2f3;
+	--cal-sch-8: #cbe3fc;
+	--cal-sch-9: #d8e9e0;
+	--cal-sch-10: #ececd9;
+    --cal-sch-11: #ff5588;
+	--cal-sch-12: #aaaadd;
+	--cal-sch-13: #bbdd88;
+	--cal-sch-14: #ffcc66;
+	--cal-sch-15: #55aaff;
+	--cal-sch-16: #ff9d9f;
+	--cal-sch-17: #ffff0d;
+	--cal-sch-18: #a5e4e7;
+	--cal-sch-19: #8ac1f9;
+	--cal-sch-20: #b8d8c7;
+	--cal-sch-21: #dadab4;
 }
 
 /* horizontal */
@@ -1181,96 +1186,6 @@ div.nodata {
 	text-overflow: ellipsis;
 	font-size: 0.9em;
 	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan {
-	cursor: pointer;
-	background-color: #ccc;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_0 {
-	background-color: var(--cal-sch-0);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_1 {
-	background-color: var(--cal-sch-1);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_2 {
-	background-color: var(--cal-sch-2);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_3 {
-	background-color: var(--cal-sch-3);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_4 {
-	background-color: var(--cal-sch-4);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_5 {
-	background-color: var(--cal-sch-5);
-	color: #fff;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_6 {
-	background-color: var(--cal-sch-6);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_7 {
-	background-color: var(--cal-sch-7);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_8 {
-	background-color: var(--cal-sch-8);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_9 {
-	background-color: var(--cal-sch-9);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_10 {
-	background-color: var(--cal-sch-10);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_11 {
-	background-color: var(--cal-sch-11);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_12 {
-	background-color: var(--cal-sch-12);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_13 {
-	background-color: var(--cal-sch-13);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_14 {
-	background-color: var(--cal-sch-14);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_15 {
-	background-color: var(--cal-sch-15);
-	color: #000;
-}
-
-.calender > li > div > .plans > li.has_plan.issue_color_16 {
-	background-color: var(--cal-sch-16);
-	color: #fff;
 }
 
 /* vertical */
