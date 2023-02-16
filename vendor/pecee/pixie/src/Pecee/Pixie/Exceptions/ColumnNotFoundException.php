@@ -12,12 +12,4 @@ use Pecee\Pixie\Exception;
 class ColumnNotFoundException extends Exception
 {
 
-    public function __toString()
-    {
-        exit(json_encode([
-            'status' => 'error',
-            'message' => $this->getMessage()
-        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    }
-
 }
