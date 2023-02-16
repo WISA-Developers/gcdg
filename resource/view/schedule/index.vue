@@ -108,10 +108,9 @@
 							<li
 								v-for="plan in getPlan(data)" 
 								:class="{has_plan: plan.issue_idx > 0}"
-								:style="{'background-color': 'var(--cal-sch-'+plan.issue_offset+')'}"
 								@click="openIsuue(plan.issue_idx)"
 							>
-								{{ plan.title }}&nbsp;
+								<div :style="{'background-color': 'var(--cal-sch-'+plan.issue_offset+')'}">{{ plan.title }}&nbsp;</div>
 							</li>
 						</ul>
 					</div>

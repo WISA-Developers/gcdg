@@ -1180,10 +1180,18 @@ div.nodata {
 
 .calender > li > div > .plans > li {
 	width: 100%;
-	padding: 1px 5px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.calender > li > div > .plans > li.has_plan {
+	cursor: pointer;
+	background-color: #f0f0f0;
+}
+
+.calender > li > div > .plans > li.has_plan div {
+	padding: 1px 5px;
 	font-size: 0.9em;
 	color: #000;
 }
