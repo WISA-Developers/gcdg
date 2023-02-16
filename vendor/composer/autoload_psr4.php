@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'zardsama\\session\\' => array($vendorDir . '/zardsama/session/src'),
     'zardsama\\pdo\\' => array($vendorDir . '/zardsama/pdo/src'),
+    'donatj\\UserAgent\\' => array($vendorDir . '/donatj/phpuseragentparser/src/UserAgent'),
     'Wisa\\Gcdg\\' => array($baseDir . '/lib'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Php73\\' => array($vendorDir . '/symfony/polyfill-php73'),

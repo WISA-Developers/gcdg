@@ -8,3 +8,4 @@
 init/staff_snapshot.json  
 resource/repository      
 resource/files
+resource/key

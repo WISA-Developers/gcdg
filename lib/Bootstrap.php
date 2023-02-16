@@ -88,7 +88,7 @@ class Bootstrap {
         $method = $parsed_uri->getMethodName();
 
         if (class_exists($classname)) {
-            if ($classname != 'staff' && $method != 'me' && $method != 'portrait') {
+            if (($classname != 'staff' && $method != 'me' && $method != 'portrait') && ($classname != 'welease' && $method != 'auth')) {
                 $api = new App(self::dbcon(), $GLOBALS['config']);
                 $api->currentStaffIdx();
             }

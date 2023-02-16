@@ -4,6 +4,7 @@ namespace Wisa\Gcdg;
 
 use Wisa\Gcdg\weagleEyeClientMini;
 use Wisa\Gcdg\Exceptions\CommonException;
+use donatj\phpuseragentparser;
 
 class App {
 
@@ -229,6 +230,73 @@ class App {
             ]);
 
         return $token;
+    }
+
+    public function TwoFactorAuthentication(string $mode, string $type, string $code)
+    {
+        $staff_idx = $this->currentStaffIdx();
+
+        // 만료 처리
+        $this->db
+            ->table('Authentication')
+            ->where('expired', '<', date('Y-m-d H:i:s'))
+            ->delete();
+
+        // 인증 체크
+        $auth = $this->db
+            ->table('Authentication')
+            ->where('type', $type)
+            ->where('staff_idx', $staff_idx)
+            ->where('otp', $code)
+            ->where('user_agent', $_SERVER['HTTP_USER_AGENT'])
+            ->where('remote_addr', $_SERVER['REMOTE_ADDR'])
+            ->first();
+
+        // 인증 데이터 없음. otp 코드 발송
+        if (!$auth) {
+            if ($mode == 'request') {
+                $code = implode(' ', str_split(strtoupper(md5(microtime())), 4));
+                $this->db
+                    ->table('Authentication')
+                    ->insert([
+                        'type' => $type,
+                        'staff_idx' => $staff_idx,
+                        'otp' => $code,
+                        'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+                        'remote_addr' => $_SERVER['REMOTE_ADDR'],
+                        'expired' => date('Y-m-d H:i:s', strtotime('+30 days')),
+                        'registerd' => $this->db->raw('now()')
+                    ]);
+
+                $ua = parse_user_agent();
+                $os = $ua['platform'];
+                $browser = $ua['browser'];
+
+                $message  = "[Issue Tracker] 인증코드를 입력해주세요.\n\n".
+                            "- $os\n".
+                            "- $browser\n".
+                            "- 허용 아이피 : {$_SERVER['REMOTE_ADDR']}\n\n".
+                            $code;
+
+                $this->weagleEye()->call('sendWisaHelper', [
+                    'args1' => $staff_idx,
+                    'args2' => $message,
+                    'args3' => 'cs',
+                    'args7' => 'utf8'
+                ]);
+            }
+
+            $this->output([
+                'status' => 'success',
+                'auth' => 'false',
+            ]);
+        }
+
+        // 인증 성공
+        $this->output([
+            'status' => 'success',
+            'auth' => 'true'
+        ]);
     }
 
     protected function weagleEye()

@@ -10,6 +10,7 @@ class ComposerStaticInitf0abdaa96aea10701f321444bf02773f
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
+        'da5f6548f070d3d306f90eee42dd5de6' => __DIR__ . '/..' . '/donatj/phpuseragentparser/src/UserAgentParser.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -17,6 +18,10 @@ class ComposerStaticInitf0abdaa96aea10701f321444bf02773f
         array (
             'zardsama\\session\\' => 17,
             'zardsama\\pdo\\' => 13,
+        ),
+        'd' => 
+        array (
+            'donatj\\UserAgent\\' => 17,
         ),
         'W' => 
         array (
@@ -51,6 +56,10 @@ class ComposerStaticInitf0abdaa96aea10701f321444bf02773f
         'zardsama\\pdo\\' => 
         array (
             0 => __DIR__ . '/..' . '/zardsama/pdo/src',
+        ),
+        'donatj\\UserAgent\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/donatj/phpuseragentparser/src/UserAgent',
         ),
         'Wisa\\Gcdg\\' => 
         array (

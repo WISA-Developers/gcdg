@@ -3,13 +3,22 @@
         'name' => 'wisa/gcdg',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '09bbc7ceb93ccdd765c615674b7f41da1bac4be1',
+        'reference' => '3df3a1cfda7aacdc6041f54a51d3816c2289f77a',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'donatj/phpuseragentparser' => array(
+            'pretty_version' => '0.22.1',
+            'version' => '0.22.1.0',
+            'reference' => '825e0db16cd16f29c50f1bc83f3e2d368b40f97e',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../donatj/phpuseragentparser',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'jasongrimes/paginator' => array(
             'pretty_version' => '1.0.3',
             'version' => '1.0.3.0',
@@ -163,7 +172,7 @@
         'wisa/gcdg' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '09bbc7ceb93ccdd765c615674b7f41da1bac4be1',
+            'reference' => '3df3a1cfda7aacdc6041f54a51d3816c2289f77a',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -14,6 +14,12 @@
             "email": "zardsama@naver.com"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/zardsama/PhpUserAgent"
+        }
+    ],
     "require": {
         "pecee/pixie": "^4.15",
         "jasongrimes/paginator": "^1.0",
@@ -21,6 +27,7 @@
         "symfony/http-client": "^5.4",
         "zardsama/session": "^0.2.0",
         "zardsama/pdo": "^0.11.0",
-        "jfcherng/php-diff": "^6.13"
+        "jfcherng/php-diff": "^6.13",
+        "donatj/phpuseragentparser": "^0.22.1"
     }
 }

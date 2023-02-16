@@ -18,7 +18,7 @@
                     </ul>
                     <span class="inputs">
                         <input type="text" name="svn_id" class="input_text" size="9" placeholder="svn 아이디">
-                        <input type="password" name="svn_pw" class="input_text" size="9" placeholder="svn 비밀번호" autocomplete="new-password" value="">
+                        <input type="password" name="svn_pw" class="input_text" size="9" placeholder="svn 비밀번호" autocomplete="new-password">
                     </span>
                     <span class="button ok"><input type="submit" value="로그 조회"></span>
                 </form>
@@ -50,7 +50,9 @@ export default {
             servers: {},
             revs: [],
             log: [],
-            svn_id: ''
+            svn_id: '',
+			svn_pw: '',
+			branch: '',
         })
     },
     methods: {
@@ -64,6 +66,8 @@ export default {
                         }
                         this.revs = ret.log;
                         this.svn_id = f.svn_id.value;
+						this.svn_pw = f.svn_pw.value;
+						this.branch = f.branch.value;
                     }
                 });
         },
@@ -81,7 +85,7 @@ export default {
                 window.alert('적용할 리비전을 선택해주세요.');
                 return false;
             }
-
+			/*
             const check = window.prompt(
                 `- 소스가 overwrite되며 별도 백업이 되지 않습니다.\n`+
                 `- 여러 리비전 배포 시 리비전이 빠른 순서대로 실행해주세요.\n`+
@@ -93,6 +97,7 @@ export default {
                 window.alert('취소되었습니다.');
                 return false;
             }
+			*/
 
             printLoading();
 
@@ -101,26 +106,12 @@ export default {
             this.released_servers = 0;
             select_server.forEach((o) => {
                 const url = o.value;
-
-                this.log = [];
-                api('/api/welease/release?svn_id='+this.svn_id+'&rev='+rev+'&url='+url, 'get')
+                
+                api('/api/welease/release?svn_id='+this.svn_id+'&svn_pw='+this.svn_pw+'&branch='+this.branch+'&rev='+rev+'&url='+url, 'get')
                     .then((ret) => {
-                        if (ret.result == '200') {
-                            if (ret.data == null) {
-                                this.log.push({kind: 'server', text: url});
-                                this.log.push({kind: 'error', text: '응답 값이 없습니다.'});
-                            } else {
-                                ret.data.forEach(function(r) {
-                                    this.log.push(r);
-                                });
-                                this.log.push({kind: 'elapsed', text: ret.elapsed});
-                            }
-                        } else {
-                            this.log.push({kind: 'server', text: url});
-                            this.log.push({kind: 'error', text: ret.result});
-                        }
+						this.log = this.log.concat(ret.data);
 
-                        window.released_servers++;
+                        this.released_servers++;
                         if (this.release_servers == this.released_servers) {
                             this.release_servers = this.released_servers = null;
                             removeLoading();
@@ -134,10 +125,34 @@ export default {
         }
     },
     beforeMount: function() {
-        api('/api/welease/servers')
-            .then((ret) => {
-               this.servers = ret.data;
-            });
+		api('/api/welease/otp?mode=request&code='+window.localStorage.getItem('welease_auth_code'))
+			.then((auth) => {
+				if (auth.status != 'success') return false;
+
+				if (auth.auth == 'true') {
+					api('/api/welease/servers')
+						.then((ret) => {
+						   this.servers = ret.data;
+						});
+				} else {
+					let code = window.prompt('수신받은 코드를 입력해주세요.');
+					api('/api/welease/otp?code='+code)
+						.then((auth) => {
+							if (auth.auth == 'true') {
+								window.localStorage.setItem('welease_auth_code', code);
+								api('/api/welease/servers')
+									.then((ret) => {
+									   this.servers = ret.data;
+									});
+							} else {
+								window.alert('코드가 정확하지 않습니다.');
+								this.$router.push({
+									path: '/dashboard'
+								});
+							}
+						});
+				}
+			});
     },
     updated: function() {
         if (window.release_servers == null) {

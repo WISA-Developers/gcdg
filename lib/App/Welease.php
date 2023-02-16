@@ -8,6 +8,7 @@ use Wisa\Gcdg\App\SVN;
 use Wisa\Gcdg\Exceptions\CommonException;
 use Zeuxisoo\Core\Validator;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\Exception\ClientException;
 
 class Welease extends App
 {
@@ -20,6 +21,14 @@ class Welease extends App
     {
         $this->db = $db;
         $this->config = $config;
+    }
+
+    public function otp(ParsedURI $parsedURI)
+    {
+        $code = $parsedURI->getParameter('code');
+        $mode = $parsedURI->getParameter('mode', '');
+
+        $this->TwoFactorAuthentication($mode, 'welease', $code);
     }
 
     public function servers() {
@@ -47,10 +56,12 @@ class Welease extends App
 
     public function getSVNLog(ParsedURI $parsedURI)
     {
+        $this->ProjectPermission('developers', 1);
+
         $validator = Validator::factory($_POST);
         $validator->add('svn_id', 'svn 아이디를 입력해주세요.')->rule('required');
         $validator->add('svn_pw', 'svn 패스워드를 입력해주세요.')->rule('required');
-        $validator->add('branch', 'svn 아이디를 입력해주세요.')->rule('required');
+        $validator->add('branch', 'svn 브랜치를 선택해주세요.')->rule('required');
 
         if ($validator->inValid()) {
             throw new CommonException($validator->firstError());
@@ -76,6 +87,8 @@ class Welease extends App
 
     public function release()
     {
+        $this->ProjectPermission('developers', 1);
+
         $validator = Validator::factory($_GET);
         $validator->add('url', '배포 URL을 입력해주세요.')->rule('required');
         $validator->add('svn_id', 'svn 아이디를 입력해주세요.')->rule('required');
@@ -83,6 +96,16 @@ class Welease extends App
         if ($validator->inValid()) {
             throw new CommonException($validator->firstError());
         }
+
+        // 로그 저장
+        $fp = fopen(__HOME_DIR__.'/resource/key/welease.log', 'a+');
+        fputcsv($fp, [
+            date('Y-m-d H:i:s'),
+            $this->currentStaffIdx(),
+            $_GET['url'],
+            $_GET['svn_id']
+        ]);
+        fclose($fp);
 
         // 인증 파일 생성
         $host_ip = gethostbyname(preg_replace('/https?:\/\//', '', $_GET['url']));
@@ -92,20 +115,42 @@ class Welease extends App
         fwrite($fp, $secret);
         fclose($fp);
 
+        // svn 비밀번호 암호화
+        $_GET['svn_pw'] = base64_encode(openssl_encrypt(
+            $_GET['svn_pw'],
+            'aes-128-cbc',
+            $this->config->aes_key,
+            OPENSSL_RAW_DATA,
+            base64_decode($this->config->aes_iv)
+        ));
+
         // 배포
         $url = $_GET['url'].'/weagleEye/welease2.php';
         $_GET['secret'] = $secret;
 
-        $client = HttpClient::create();
-        $response = $client->request('POST', $url, [
-            'body' => $_GET
-        ]);
+        try {
+            $client = HttpClient::create();
+            $response = $client->request('POST', $url, [
+                'body' => $_GET
+            ]);
+            $_result = $response->toArray();
+        } catch(\Exception $e) {
+            $this->output([
+                'status' => 'error',
+                'branch' => $_GET['branch'],
+                'revision' => $_GET['rev'],
+                'data' => [
+                    ['kind' => 'server', 'text' => $_GET['url']],
+                    ['name' => 'error', 'text' => $e->getMessage()]
+                ],
+                'message' => $e->getMessage()
+            ]);
+        }
 
         if (file_exists($secret_file) == true) {
             unlink($secret_file);
         }
 
-        $_result = json_decode($result);
         if (is_array($_result) == true) {
             $result = $_result;
         } else {
@@ -122,8 +167,7 @@ class Welease extends App
         }
 
         $this->output([
-           'status' => 'success',
-            'result' => $info['http_code'],
+            'status' => 'success',
             'branch' => $_GET['branch'],
             'revision' => $_GET['rev'],
             'data' => $result
@@ -131,14 +175,15 @@ class Welease extends App
     }
 
     public function auth(ParsedURI $parsedURI) {
-        $svn_id = $parsedURI->getParameter('svn_id');
-        $host_ip = $parsedURI->getParameter('host_ip');
-        $secret = $parsedURI->getParameter('secret');
+        $svn_id = $_POST['svn_id'];
+        $host_ip = $_POST['host_ip'];
+        $secret = $_POST['secret'];
         $svn_id = preg_replace('/\.|\/|\\\/', '', $svn_id);
         $host_ip = md5($host_ip);
 
         // check exists secret
         $file = __HOME_DIR__.'/resource/key/'.$svn_id.'_'.$host_ip.'.secret';
+
         if (file_exists($file) == false) {
             exit('secret_not_found');
         }
