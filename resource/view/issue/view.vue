@@ -160,7 +160,7 @@
                         <th>관련 계정</th>
                         <td>
                             <ul class="account">
-                                <li v-for="account in data.account.length">
+                                <li v-for="account in data.account">
                                     <a :href="'https://wep.wisa.co.kr/crm/detail/'+account.idx" target="_blank">
                                         <i class="xi-link"></i> <strong>{{ account.account_id }}</strong> {{ account.site_name }}
                                     </a>
