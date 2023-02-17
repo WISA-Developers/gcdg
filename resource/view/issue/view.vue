@@ -94,6 +94,7 @@
 								<li v-for="staff in data.developer">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
 						</td>
@@ -105,6 +106,7 @@
 								<li v-for="staff in data.tester">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
 						</td>
@@ -116,6 +118,7 @@
 								<li v-for="staff in data.referer">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
 						</td>
@@ -125,6 +128,7 @@
 						<td>
 							<ul class="staffs_role">
 								<li v-for="device in data.device">{{ device }}</li>
+                                <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 							</ul>
 						</td>
 					</tr>
@@ -307,6 +311,7 @@ export default {
 			data: {
 				device: []
 			},
+            read: [],
 			plan: {},
 			child: {
 				c: 1,
@@ -361,6 +366,7 @@ export default {
 				.then((ret) => {
 					if (ret.status == 'success') {
 						this.data = ret.data;
+                        this.read = ret.read;
 
 						// 뷰어
 						toastui.Editor.factory({

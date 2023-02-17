@@ -239,6 +239,35 @@ class Issue extends App {
         if ($data->plan_s == '0000-00-00') $data->plan_s = null;
         if ($data->plan_e == '0000-00-00') $data->plan_e = null;
 
+        // 조회수 체크
+        $read = [];
+        $staff_idx = $this->currentStaffIdx();
+        $readlist = $this->db
+            ->table('issue_read')
+            ->select(['staff_idx', 'hit_count'])
+            ->where('issue_idx', $idx)
+            ->get();
+        foreach ($readlist as $list) {
+            $read[$list->staff_idx] = $list->hit_count;
+        }
+        if (!isset($read[$staff_idx])) $read[$staff_idx] = 0;
+        // 조회수 증가
+        if ($read[$staff_idx] > 0) {
+            $this->db->table('issue_read')->update([
+               'hit_count' => $read[$staff_idx]+1,
+               'modified' => $this->db->raw('now()')
+            ]);
+        } else {
+            $this->db->table('issue_read')->insert([
+                'issue_idx' => $idx,
+                'staff_idx' => $staff_idx,
+                'hit_count' => 1,
+                'registerd' => $this->db->raw('now()'),
+                'modified' => $this->db->raw('now()')
+            ]);
+        }
+        $read[$staff_idx]++;
+
         // 담당자 목록
         $all_staff_idx = []; // 이슈 내 담당자 전체 pkey
         $res = $this->db
@@ -260,7 +289,7 @@ class Issue extends App {
         $_staffs = Staff::all($all_staff_idx);
         foreach ($res as $staff) {
             if (isset($data->{$staff->role}) == false) $data->{$staff->role} = [];
-
+            if (!isset($_staffs[$staff->staff_idx])) continue;
             array_push(
                 $data->{$staff->role},
                 array_merge((array) $staff, (array) $_staffs[$staff->staff_idx])
@@ -319,6 +348,7 @@ class Issue extends App {
         $this->output([
             'status' => 'success',
             'data' => $data,
+            'read' => array_keys($read),
             'permission' => $this->issuePermission('write', $data)
         ]);
 
