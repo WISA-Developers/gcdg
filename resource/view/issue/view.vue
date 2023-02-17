@@ -144,7 +144,7 @@
 							</div>
 						</td>
 					</tr>
-					<tr v-if="data.repository">
+					<tr v-if="data.repository.length">
 						<th>저장소 리비전</th>
 						<td>
 							<ul class="revision">
@@ -156,11 +156,11 @@
 							</ul>
 						</td>
 					</tr>
-                    <tr v-if="data.account">
+                    <tr v-if="data.account.length">
                         <th>관련 계정</th>
                         <td>
                             <ul class="account">
-                                <li v-for="account in data.account">
+                                <li v-for="account in data.account.length">
                                     <a :href="'https://wep.wisa.co.kr/crm/detail/'+account.idx" target="_blank">
                                         <i class="xi-link"></i> <strong>{{ account.account_id }}</strong> {{ account.site_name }}
                                     </a>
@@ -322,7 +322,9 @@ export default {
 		return Vue.reactive({
             idx : null,
 			data: {
-				device: []
+				device: [],
+                repository: [],
+                account: []
 			},
             read: [],
 			plan: {},

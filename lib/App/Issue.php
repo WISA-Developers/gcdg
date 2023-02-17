@@ -337,8 +337,12 @@ class Issue extends App {
 
         // 관련 디바이스
         $data->device = ($data->device) ? explode('|', trim($data->device, '|')) : [];
+        
+        // 저장소
         if ($data->repository) {
             $data->repository = json_decode($data->repository);
+        } else {
+            $data->repository = [];
         }
 
         // 코드 한글 변환
