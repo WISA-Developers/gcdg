@@ -1387,12 +1387,17 @@ div.nodata {
 
 #welease > .contentArea {
 	display: grid;
-	grid-template-rows: 50px 1fr 70px 1.5fr;
+	grid-template-rows: 60px 50px 1fr 70px 1.5fr;
 	padding: 0;
+}
+
+#welease > .contentArea .title {
+	margin: 10px 10px 0 10px;
 }
 
 #welease > .contentArea .svn_auth {
 	padding: 10px;
+	border-top: solid 1px #dfdfdf;
 	border-bottom: solid 1px #dfdfdf;
 }
 

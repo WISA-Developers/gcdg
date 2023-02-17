@@ -10,6 +10,7 @@
         </div>
 
         <div class="contentArea">
+            <h2 class="title"><i class="xi-network-public xi-1x"></i> Welease 스마트윙 배포 툴</h2>
             <div class="svn_auth">
                 <form @submit.stop.prevent="getSVNLog">
                     <ul class="repo_types">
