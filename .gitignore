@@ -4,6 +4,7 @@ init/config.json.php
 init/staff_snapshot.json
 resource/files
 resource/repository/
+resource/key/
 vendor/
 testlogin.php
 .bash_history

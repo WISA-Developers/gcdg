@@ -128,7 +128,6 @@
 						<td>
 							<ul class="staffs_role">
 								<li v-for="device in data.device">{{ device }}</li>
-                                <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 							</ul>
 						</td>
 					</tr>
