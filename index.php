@@ -18,11 +18,14 @@ $define = json_decode(file_get_contents('init/define.json'));
 
 define('__SVN_PATH__', $config->svn_path);
 
-// session
-$connect = new DBcon('mysql', (array) $config->session_db);
-$connect->connect();
+$request_extension = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_EXTENSION);
+if (!in_array($request_extension, array('js', 'vue', 'ico'))) {
+    // session
+    $connect = new DBcon('mysql', (array) $config->session_db);
+    $connect->connect();
 
-new MySQLSession(new PDODatabase($connect->getPdoInstance()));
+    new MySQLSession(new PDODatabase($connect->getPdoInstance()));
+}
 
 // route
 require __DIR__.'/routes/Route.php';
