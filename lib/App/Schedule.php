@@ -43,6 +43,7 @@ class Schedule extends App {
             ->select([
                 'i.project_idx', 's.issue_idx', 's.schedule_type', 's.schedule_date',
                 'i.title', 'i.status',
+                $this->db->raw('group_concat(distinct is.staff_idx) as staff_idx'),
                 'sg.staff_group_info_idx' => 'group_idx',
                 $this->db->raw('group_concat(s.schedule_type) as types')
             ])
@@ -72,6 +73,8 @@ class Schedule extends App {
         $group_idx = $parsed_uri->getParameter('group_idx');
         if ($group_idx) $qry->whereIn('sg.staff_group_info_idx', explode(',', $group_idx));
 
+        $_staffs = (new Staff($this->db, $this->config))->snapshot();
+
         $plans = $issue_offset = [];
         $res = $qry->groupby('s.schedule_date')
             ->groupby('s.issue_idx')
@@ -85,6 +88,14 @@ class Schedule extends App {
             }
             $plan->issue_offset = array_search($plan->issue_idx, $issue_offset);
             $plan->week_no = (int) date('W', strtotime($plan->schedule_date));
+
+            // 담당자 정보
+            $plan->staff_idx = explode(',', $plan->staff_idx);
+            $plan->staff = [];
+            foreach ($plan->staff_idx as $_idx) {
+                array_push($plan->staff, $_staffs[$_idx]);
+            }
+            unset($plan->staff_idx);
 
             // 추가
             if (!isset($plans[$plan->schedule_date])) {

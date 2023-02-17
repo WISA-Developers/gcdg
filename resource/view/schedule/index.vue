@@ -107,10 +107,13 @@
 						<ul class="plans">
 							<li
 								v-for="plan in getPlan(data)" 
-								:class="{has_plan: plan.issue_idx > 0}"
+								:class="{has_plan: plan.issue_idx > 0, ['issue_color_'+plan.issue_offset]: true}"
 								@click="openIsuue(plan.issue_idx)"
 							>
-								<div :style="{'background-color': 'var(--cal-sch-'+plan.issue_offset+')'}">{{ plan.title }}&nbsp;</div>
+								{{ plan.title }}
+                                <ul class="staffs_role">
+                                    <li v-for="staff in plan.staff">{{ staff.name }}</li>
+                                </ul>
 							</li>
 						</ul>
 					</div>
@@ -122,7 +125,7 @@
 
 <script type="module">
 export default {
-	inject: ['define_config', 'staff_snapshot'],
+	inject: ['define_config'],
     props: {
         'me': Array
     },
