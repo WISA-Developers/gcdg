@@ -66,6 +66,11 @@ class MySQLSession extends SessionHandler
                 $data, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI']
             ));
         }
+        if ($this->db->geterror()) {
+            $fp = fopen(__HOME_DIR__.'/resource/files/session_error.txt', 'a+');
+            fwrite($fp, $this->db->getqry()."\n".$this->db->geterror());
+            fclose($fp);
+        }
         return ($result != null);
     }
 
