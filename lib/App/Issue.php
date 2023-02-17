@@ -299,6 +299,14 @@ class Issue extends App {
             }
         }
 
+        // 위사계정 목록 생성
+        $data->account = $this->db
+            ->table(['issue_account' => 'i'])
+            ->join(['ep.account', 'a'], 'i.account_idx', '=', 'a.idx')
+            ->select(['a.idx', 'a.account_id', 'a.biz_name', 'a.site_name', 'a.domain'])
+            ->where('i.issue_idx', $idx)
+            ->get();
+
         // 프로젝트 진행도
         if (in_array('plan', $scope)) {
             $total_days = 0;
@@ -476,6 +484,9 @@ class Issue extends App {
             ]);
         }
 
+        // 위사계정 연동 저장
+        $this->setAccount($idx, $_POST['account_idx'] ?? []);
+
         // 사용/미사용 이미지 마킹
         (new File($this->db, $this->config))->activeByMarkDown($idx, $data['hash'], $data['content']);
 
@@ -519,6 +530,38 @@ class Issue extends App {
         }
 
         return $new_staffs;
+    }
+
+    private function setAccount(int $issue_idx, Array $list)
+    {
+        $remove = $this->db
+            ->table('issue_account')
+            ->where('issue_idx', '=', $issue_idx);
+
+        $new_account = [];
+        if (is_array($list) && count($list) > 0) {
+            $remove->whereNotIn('account_idx', $list)->delete();
+
+            foreach ($list as $account_idx) {
+                $data = [
+                    'issue_idx' => $issue_idx,
+                    'account_idx' => $account_idx,
+                    'registerd' => $this->db->raw('now()')
+                ];
+
+                $idx = $this->db
+                    ->table('issue_account')
+                    ->onDuplicateKeyUpdate($data)
+                    ->insert($data);
+                if ($idx) {
+                    array_push($new_account, $account_idx);
+                }
+            }
+        } else {
+            $remove->delete();
+        }
+
+        return $new_account;
     }
 
     public function setStatus(ParsedURI $parsed_uri) {
@@ -664,6 +707,35 @@ class Issue extends App {
             ]);
         }
         throw new CommonException('스케쥴 등록 에러');
+    }
+
+    public function epAccount(ParsedURI$parsedURI)
+    {
+        $search_str = $parsedURI->getParameter('search_str');
+        if (!$search_str) {
+            $this->output([
+                'status' => 'success',
+                'data' => []
+            ]);
+        }
+
+        $res = $this->db
+            ->table('ep.account')
+            ->select(['idx', 'account_id', 'site_name', 'biz_name'])
+            ->where(function($qb) use ($search_str) {
+                $qb->where('account_id', 'like', "%$search_str%");
+                $qb->orWhere('site_name', 'like', "%$search_str%");
+                $qb->orWhere('biz_name', 'like', "%$search_str%");
+                $qb->orWhere('domain', 'like', "%$search_str%");
+            })
+            ->where('deleted', 2)
+            ->orderBy('account_id', 'asc')
+            ->get();
+
+        $this->output([
+           'status' => 'success',
+           'data' => $res
+        ]);
     }
 
     public function remove(ParsedURI $parsed_uri)

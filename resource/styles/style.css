@@ -762,6 +762,16 @@ h2 .buttons .on {
 	white-space: nowrap;
 }
 
+/* account */
+#issueTicket .account {
+	margin: 0;
+	padding: 0;
+}
+
+#issueTicket .account strong {
+	color: var(--point-color);
+}
+
 /* revision */
 #issueTicket .revision {
 	margin: 0;

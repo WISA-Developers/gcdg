@@ -134,6 +134,16 @@
 						></repo_search>
 					</td>
 				</tr>
+                <tr>
+                    <th>관련 계정</th>
+                    <td>
+                        <account_search
+                            name="account_idx"
+                            source="issue/epAccount"
+                            :search.sync="data.account"
+                        ></account_search>
+                    </td>
+                </tr>
 				<tr>
 					<th>디바이스</th>
 					<td>
@@ -256,7 +266,8 @@ export default {
 	components: {
 		'datepicker': datepicker,
 		staffs_search: Vue.defineAsyncComponent(() => loadModule('/resource/view/common/staffs_search.vue', options)),
-		repo_search: Vue.defineAsyncComponent(() => loadModule('/resource/view/common/repo_search.vue', options))
+		repo_search: Vue.defineAsyncComponent(() => loadModule('/resource/view/common/repo_search.vue', options)),
+        account_search: Vue.defineAsyncComponent(() => loadModule('/resource/view/common/account_search.vue', options)),
 	}
 }
 </script>
