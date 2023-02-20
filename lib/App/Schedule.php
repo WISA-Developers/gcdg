@@ -67,8 +67,7 @@ class Schedule extends App {
         if ($status) $qry->whereIn('i.status', explode(',', $status));
         $role = $parsed_uri->getParameter('role');
         if ($role) {
-            $qry->join(['issue_staff', 's2'], 'i.idx', '=', 's2.issue_idx');
-            $qry->whereIn('s2.staff_idx', is_array($role) ? $role : explode(',', $role));
+            $qry->whereIn('is.staff_idx', is_array($role) ? $role : explode(',', $role));
         }
         $group_idx = $parsed_uri->getParameter('group_idx');
         if ($group_idx) $qry->whereIn('sg.staff_group_info_idx', explode(',', $group_idx));
