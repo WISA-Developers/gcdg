@@ -86,7 +86,6 @@ export default {
                 window.alert('적용할 리비전을 선택해주세요.');
                 return false;
             }
-			/*
             const check = window.prompt(
                 `- 소스가 overwrite되며 별도 백업이 되지 않습니다.\n`+
                 `- 여러 리비전 배포 시 리비전이 빠른 순서대로 실행해주세요.\n`+
@@ -98,7 +97,6 @@ export default {
                 window.alert('취소되었습니다.');
                 return false;
             }
-			*/
 
             printLoading();
 
