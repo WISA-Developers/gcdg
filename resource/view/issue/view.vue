@@ -337,18 +337,25 @@ export default {
 				component_comment_count: '-',
 				component_file_count: '-',
 				comoponent_chain_count: '-'
-			}
+			},
+			stopWatch: false
 		})
 	},
 	watch: {
 		'child.c': function() {
-			this.$refs.ref_comments.hashchanged();
+			if (!this.stopWatch) {
+				this.$refs.ref_comments.hashchanged();
+			}
 		},
 		'child.f': function() {
-			this.$refs.ref_files.hashchanged();
+			if (!this.stopWatch) {
+				this.$refs.ref_files.hashchanged();
+			}
 		},
 		'child.i': function() {
-			this.$refs.ref_chains.hashchanged();
+			if (!this.stopWatch) {
+				this.$refs.ref_chains.hashchanged();
+			}
 		},
         idx: function(n, o) {
             if (!o || n == o) return;
@@ -492,6 +499,8 @@ export default {
 			return false;
 		},
 		goList: function() {
+			this.stopWatch = true;
+
             if (this.previous_url) location.href = this.previous_url;
             else {
                 this.$router.push({
