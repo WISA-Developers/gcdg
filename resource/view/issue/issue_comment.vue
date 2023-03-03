@@ -30,6 +30,9 @@
 		<div id="comment"></div>
 	</div>
 	<div class="bottom">
+		<div>
+			<label style="font-size: 0.9em;"><input type="checkbox" v-model="push"> 사내 메신저로 수신자에게 알림</label>
+		</div>
         <div class="page_block" v-html="paginator"></div>
         <div class="button_block">
 			<span class="button ok"><input type="button" value="등록" @click="set(null)"></span>
@@ -112,6 +115,7 @@ export default {
 	data: function() {
 		return {
 			hash: Date.now(),
+			push: true,
 			page: 0,
 			paginator: null,
 			comments: [],
@@ -156,7 +160,8 @@ export default {
 					idx: 0,
 					issue_idx: this.data.idx,
 					hash: this.hash,
-					content: this.Editor.getMarkdown()
+					content: this.Editor.getMarkdown(),
+					push: this.push
 				};
 				this.Editor.setHTML('');
 			}

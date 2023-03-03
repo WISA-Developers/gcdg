@@ -169,28 +169,30 @@ class Comment extends App {
                 ]);
 
             // 담당자에게 알림 발송
-            $staffs_idx = [];
-            $staffs = $this->db
-                ->table('issue_staff')
-                ->selectDistinct(['staff_idx'])
-                ->where('issue_idx', $_POST['issue_idx'])
-                ->get();
-            foreach ($staffs as $staff) {
-                array_push($staffs_idx, $staff->staff_idx);
-            }
-            if (count($staffs_idx) > 0) {
-                $issue = $this->db->select(['idx', 'title'])->table('issue')->where('idx', $_POST['issue_idx'])->first();
-                $this->weagleEye()->call('sendWisaHelper', [
-                    'args1' => implode('@', $staffs_idx),
-                    'args2' =>
-                        "[Issue Tracker] 이슈에 코멘트가 작성되었습니다..\n\n".
-                        "- {$issue->title}\n".
-                        "--------------------------------------\n".
-                        strip_tags($_POST['content']),
-                    'args3' => 'cs',
-                    'args4' => '@@type=link@@link_text=이슈 확인@@link_url='.__URL__.'/#/issue/view/'.$issue->idx,
-                    'args7' => 'utf8'
-                ]);
+            if ($_POST['push'] == 'true') {
+                $staffs_idx = [];
+                $staffs = $this->db
+                    ->table('issue_staff')
+                    ->selectDistinct(['staff_idx'])
+                    ->where('issue_idx', $_POST['issue_idx'])
+                    ->get();
+                foreach ($staffs as $staff) {
+                    array_push($staffs_idx, $staff->staff_idx);
+                }
+                if (count($staffs_idx) > 0) {
+                    $issue = $this->db->select(['idx', 'title'])->table('issue')->where('idx', $_POST['issue_idx'])->first();
+                    $this->weagleEye()->call('sendWisaHelper', [
+                        'args1' => implode('@', $staffs_idx),
+                        'args2' =>
+                            "[Issue Tracker] 이슈에 코멘트가 작성되었습니다..\n\n".
+                            "- {$issue->title}\n".
+                            "--------------------------------------\n".
+                            strip_tags($_POST['content']),
+                        'args3' => 'cs',
+                        'args4' => '@@type=link@@link_text=이슈 확인@@link_url='.__URL__.'/#/issue/view/'.$issue->idx,
+                        'args7' => 'utf8'
+                    ]);
+                }
             }
         }
 
