@@ -19,5 +19,5 @@ return array(
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Pecee\\Pixie\\' => array($vendorDir . '/pecee/pixie/src/Pecee/Pixie'),
     'Jfcherng\\Utility\\' => array($vendorDir . '/jfcherng/php-color-output/src', $vendorDir . '/jfcherng/php-mb-string/src'),
-    'Jfcherng\\Diff\\' => array($vendorDir . '/jfcherng/php-diff/src', $vendorDir . '/jfcherng/php-sequence-matcher/src'),
+    'Jfcherng\\Diff\\' => array($vendorDir . '/jfcherng/php-sequence-matcher/src', $vendorDir . '/jfcherng/php-diff/src'),
 );
