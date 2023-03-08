@@ -76,6 +76,7 @@ Class PDODatabase {
 
 			$this->res = $res;
 		} catch(PDOException $e) {
+            exit;
 			exit($e->getMessage());
 		}
 

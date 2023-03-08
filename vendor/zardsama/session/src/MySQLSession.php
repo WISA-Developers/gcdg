@@ -36,19 +36,13 @@ class MySQLSession extends SessionHandler
         $session = $this->db->row("select $field from ".SELF::TABLE." where session_id='$id'");
         if ($session == false) $session = '';
 
+        $session = preg_replace('/STAFF_NAME[^;]+";/', '', $session);
+
         return $session;
     }
 
     public function write($id, $data)
     {
-        $serialized = $this->unserialize($data);
-        if (empty($_SERVER['REMOTE_ADDR']) == true) {
-            $_SERVER['REMOTE_ADDR'] = '0.0.0.0';
-        }
-        if (empty($_SERVER['REQUEST_URI']) == true) {
-            $_SERVER['REQUEST_URI'] = 'localhost';
-        }
-
         if ($this->db->row("select count(*) from ".SELF::TABLE." where session_id='$id'") > 0)
         {
             $result = $this->db->query("
@@ -65,11 +59,6 @@ class MySQLSession extends SessionHandler
             , array(
                 $data, $_SERVER['REMOTE_ADDR'], $_SERVER['REQUEST_URI']
             ));
-        }
-        if ($this->db->geterror()) {
-            $fp = fopen(__HOME_DIR__.'/resource/files/session_error.txt', 'a+');
-            fwrite($fp, $this->db->getqry()."\n".$this->db->geterror());
-            fclose($fp);
         }
         return ($result != null);
     }
