@@ -92,7 +92,9 @@ class Schedule extends App {
             $plan->staff_idx = explode(',', $plan->staff_idx);
             $plan->staff = [];
             foreach ($plan->staff_idx as $_idx) {
-                array_push($plan->staff, $_staffs[$_idx]);
+                if (is_array($_staffs[$_idx])) {
+                    array_push($plan->staff, $_staffs[$_idx]);
+                }
             }
             unset($plan->staff_idx);
 

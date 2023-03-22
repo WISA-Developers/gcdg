@@ -194,11 +194,15 @@ class Issue extends App {
 
             $data->staffs_all = ($data->staffs_all) ? explode(',', $data->staffs_all) : [];
             foreach ($data->staffs_all as $_staff_idx) {
-                $data->staffs[] = $_staffs[$_staff_idx];
+                if (is_object($_staffs[$_staff_idx])) {
+                    $data->staffs[] = $_staffs[$_staff_idx];
+                }
             }
             unset($data->staffs_all);
 
-            $data->creater = $_staffs[$data->creater_idx];
+            if (is_object($_staffs[$data->creater_idx])) {
+                $data->creater = $_staffs[$data->creater_idx];
+            }
         }
 
         $this->output([
@@ -337,7 +341,7 @@ class Issue extends App {
 
         // 관련 디바이스
         $data->device = ($data->device) ? explode('|', trim($data->device, '|')) : [];
-        
+
         // 저장소
         if ($data->repository) {
             $data->repository = json_decode($data->repository);
