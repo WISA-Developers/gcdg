@@ -109,7 +109,9 @@ class Project extends App {
 
             $data->staffs_all = ($data->staffs_all) ? explode(',', $data->staffs_all) : [];
             foreach ($data->staffs_all as $_staff_idx) {
-                $data->staffs[] = $_staffs[$_staff_idx];
+                if (is_array($_staffs[$_staff_idx])) {
+                    $data->staffs[] = $_staffs[$_staff_idx];
+                }
             }
             unset($data->staffs_all);
         }

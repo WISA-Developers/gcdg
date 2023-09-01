@@ -98,10 +98,12 @@ class Issue extends App {
             ->select(['i.*', $this->db->raw('group_concat(distinct(s.staff_idx)) as staffs_all')])
             ->leftjoin(['issue_staff', 's'], 'i.idx', '=', 's.issue_idx')
             ->where('i.project_idx', $project_idx)
+            /*
             ->where(function(object $qb) {
                 $qb->where('s.role', '!=', 'referer');
                 $qb->orWhereNull('s.role');
             })
+            */
             ->groupBy('i.idx');
 
         if (!$this->projectPermission('admin,project_admin,member,developer', $project_idx)) {
