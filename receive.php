@@ -29,7 +29,7 @@ $config = [
     'collation' => 'utf8mb4_general_ci',
 ];
 
-$qb = (new \Pecee\Pixie\Connection('mysql', $config))->getQueryBuilder();
+$qb = (new DBcon('mysql', $config))->getQueryBuilder();
 
 $host = trim($_POST['host']);
 $exception = trim($_POST['exception']);
