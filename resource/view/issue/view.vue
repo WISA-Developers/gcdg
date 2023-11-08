@@ -50,6 +50,7 @@
 								<li v-for="staff in data.creater">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
 						</td>
@@ -61,6 +62,7 @@
 								<li v-for="staff in data.planner">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
 						</td>
@@ -72,6 +74,7 @@
 								<li v-for="staff in data.designer">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
 						</td>
@@ -83,6 +86,7 @@
 								<li v-for="staff in data.publisher">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
 						</td>
