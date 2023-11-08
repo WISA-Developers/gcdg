@@ -56,6 +56,19 @@ parse_str($host['query'], $params);
 $host_ep = $host['host'];
 $host_ep = preg_replace('/^(m|www)\./', '', $host_ep);
 
+if (in_array($host['host'], [
+    'smartwingch2.mywisa.com',
+    'smartwingch1.mywisa.com',
+    'smartwingeng.mywisa.com',
+    'smartwingjap.mywisa.com',
+    'smartwing.mywisa.com'
+])) {
+    exit(json_encode([
+        'status' => 'denied',
+        'message' => 'explain'
+    ]));
+}
+
 if (preg_match('/(.*)\.mywisa\.(com|co\.kr)$/', $host_ep, $account_id)) {
     $account = $qb->table('ep.account')
         ->select('idx')
