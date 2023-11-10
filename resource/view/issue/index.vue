@@ -27,12 +27,14 @@
 
 			<fieldset>
 				<legend>담당자</legend>
-				<staffs_search 
+				<staffs_search
+                    ref="role"
 					name="role" 
 					source="staff/list" 
 					:search.sync="search.role" 
 					@get-search="getSearch"
 				></staffs_search>
+                <a v-if="isSearchMe" @click="searchMe" class="mini_link">+ 내가 담당자인 이슈 검색</a>
 			</fieldset>
 
 			<fieldset>
@@ -216,6 +218,17 @@ export default {
 			});
 		}
 	},
+    computed: {
+        isSearchMe: function() {
+            if (!this.$route.query.role) return true;
+
+            this.$route.query.role.split(',').some(s => {
+                if (this.me.staff_idx == s) {
+                    return true;
+                }
+            });
+        }
+    },
 	methods: {
 		hashchanged: function() {
 			if (this.$router.currentRoute.value.path != '/issue') return false;
@@ -264,7 +277,15 @@ export default {
 			this.$router.push({
 				path: '/issue/ticket'
 			});
-		}
+		},
+        searchMe: function() {
+            this.$refs.role.add({
+                idx: this.me.staff_idx,
+                name: this.me.name,
+                group_name: this.me.group_name,
+                portrait: this.me.portrait
+            });
+        }
 	},
 	mounted: function() {
 		this.search = urlToParam(this.search);

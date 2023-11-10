@@ -170,7 +170,19 @@ export default {
 				input.value = '';
 				window.search_cursor = 0;
 			});
-		}
+		},
+        add: function(staff) {
+            this.selected.every(s => {
+                if (s.idx == staff.idx) {
+                    window.alert('이미 추가되어있습니다.');
+                    staff = null;
+                }
+                return true;
+            })
+            if (staff) {
+                this.selected.push(staff);
+            }
+        }
 	},
 	mounted: function() {
 		this.reload();
