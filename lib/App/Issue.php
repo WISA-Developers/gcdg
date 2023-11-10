@@ -259,7 +259,10 @@ class Issue extends App {
         if (!isset($read[$staff_idx])) $read[$staff_idx] = 0;
         // 조회수 증가
         if ($read[$staff_idx] > 0) {
-            $this->db->table('issue_read')->update([
+            $this->db->table('issue_read')
+                ->where('issue_idx', $idx)
+                ->where('staff_idx', $staff_idx)
+                ->update([
                'hit_count' => $read[$staff_idx]+1,
                'modified' => $this->db->raw('now()')
             ]);
