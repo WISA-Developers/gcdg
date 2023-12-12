@@ -24,6 +24,9 @@ if (!in_array($request_extension, array('js', 'vue', 'ico'))) {
     $connect = new DBcon('mysql', (array) $config->session_db);
     $connect->connect();
 
+    ini_set('session.cache_expire', 180);
+    ini_set('session.gc_maxlifetime', 7200);
+    ini_set('session.name', 'ep_session');
     new MySQLSession(new PDODatabase($connect->getPdoInstance()));
 }
 
