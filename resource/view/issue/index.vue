@@ -42,6 +42,7 @@
 				<div class="m_half">
 					<input type="text" @input="keyinput" :value="search.title" name="title" class="input_text input_full" placeholder="제목">
 					<input type="text" @input="keyinput" :value="search.content" name="content" class="input_text input_full" placeholder="본문">
+                    <input type="text" @input="keyinput" :value="search.rev" name="rev" class="input_text input_full" placeholder="rev">
 				</div>
 			</fieldset>
 

@@ -168,6 +168,10 @@ class Issue extends App {
             if ($modified_s) $qry->where('i.modified', '>=', $modified_s);
             if ($modified_e) $qry->where('i.modified', '<=', $modified_e.' 23:59:59');
         }
+        $rev = $parsed_uri->getParameter('rev');
+        if ($rev) {
+            $qry->whereNotNull($this->db->raw("json_search(repository, 'one', '$rev')"));
+        }
 
         // 페이징
         $count = $qry->count();
