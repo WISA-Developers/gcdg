@@ -27,6 +27,16 @@
 
 			<fieldset>
 				<legend>담당자</legend>
+                <select v-model="search.role_type" class="input_select" style="width: 100%; margin-bottom: 5px;">
+                    <option value="">모든 롤</option>
+                    <option value="planner">기획</option>
+                    <option value="designer">디자인</option>
+                    <option value="publisher">퍼블리셔</option>
+                    <option value="developer">개발자</option>
+                    <option value="tester">검수자</option>
+                    <option value="referer">참조자</option>
+                    <option value="checker">최종확인자</option>
+                </select>
 				<staffs_search
                     ref="role"
 					name="role" 
@@ -172,6 +182,7 @@ export default {
 		        page: 1,
 				work_type: [],
 				status: [],
+                role_type: '',
 				role: [],
 				title: null,
 				content: null,

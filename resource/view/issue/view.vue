@@ -127,6 +127,18 @@
 							</ul>
 						</td>
 					</tr>
+                    <tr v-if="data.checker">
+                        <th>최종확인자</th>
+                        <td>
+                            <ul class="staffs_role">
+                                <li v-for="staff in data.checker">
+                                    <img :src="'/api/staff/portrait/'+staff.idx">
+                                    {{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
 					<tr v-if="data.device.length > 0">
 						<th>디바이스</th>
 						<td>

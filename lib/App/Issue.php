@@ -124,9 +124,13 @@ class Issue extends App {
         $status = $parsed_uri->getParameter('status');
         if ($status) $qry->whereIn('i.status', explode(',', $status));
         $role = $parsed_uri->getParameter('role');
+        $role_type = $parsed_uri->getParameter('role_type');
         if ($role) {
             $qry->join(['issue_staff', 's2'], 'i.idx', '=', 's2.issue_idx');
             $qry->whereIn('s2.staff_idx', is_array($role) ? $role : explode(',', $role));
+            if ($role_type) {
+                $qry->where('s2.role', $role_type);
+            }
         }
         $device = $parsed_uri->getParameter('device');
         if ($device) {
@@ -481,7 +485,7 @@ class Issue extends App {
 
         // 담당자 저장
         $new_staffs = [];
-        foreach(['planner', 'designer', 'publisher', 'developer', 'tester', 'referer'] as $role) {
+        foreach(['planner', 'designer', 'publisher', 'developer', 'tester', 'referer', 'checker'] as $role) {
             $_new = $this->setRole($role, $idx, $data['project_idx'], $_POST[$role] ?? []);
             if (count($_new) > 0) {
                 $new_staffs = array_merge($new_staffs, $_new);

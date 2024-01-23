@@ -102,6 +102,16 @@
 						></staffs_search>
 					</td>
 				</tr>
+                <tr>
+                    <th>최종확인자</th>
+                    <td>
+                        <staffs_search
+                            name="checker"
+                            source="staff/list"
+                            :search.sync="data.checker"
+                        ></staffs_search>
+                    </td>
+                </tr>
 				<tr>
 					<th>수정권한</th>
 					<td>
