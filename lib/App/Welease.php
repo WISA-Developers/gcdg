@@ -28,6 +28,11 @@ class Welease extends App
         $code = $parsedURI->getParameter('code');
         $mode = $parsedURI->getParameter('mode', '');
 
+        $this->output([
+            'status' => 'success',
+            'auth' => 'true'
+        ]);
+
         $this->TwoFactorAuthentication($mode, 'welease', $code);
     }
 

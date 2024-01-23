@@ -893,6 +893,10 @@ div.nodata {
 	text-decoration: line-through;
 }
 
+.issue_status_N {
+	color: var(--blurry-font-color);
+}
+
 /* project plan */
 .project_plan .tableHorizontal > tbody > tr > th, .project_plan .tableHorizontal > tbody > tr > td {
 	padding: 10px 0 !important;

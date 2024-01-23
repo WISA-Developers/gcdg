@@ -129,7 +129,7 @@
 
 							<i v-if="data.wep_idx" class="xi-share attr_icon"></i>
 							<i v-if="data.device.includes('PC')" :class="{'xi-desktop': true, 'attr_icon': true, 'now_select': search.device.includes('PC')}"></i>
-							<i v-if="data.device.includes('android')" :class="{'xi-android': true, 'attr_icon': true, 'now_select': search.device.includes('android')}"></i>
+	 						<i v-if="data.device.includes('android')" :class="{'xi-android': true, 'attr_icon': true, 'now_select': search.device.includes('android')}"></i>
 							<i v-if="data.device.includes('IOS')" :class="{'xi-apple': true, 'attr_icon': true, 'now_select': search.device.includes('IOS')}"></i>
 							<i v-if="data.device.includes('APP')" :class="{'xi-apps': true, 'attr_icon': true, 'now_select': search.device.includes('APP')}"></i>
 							<span :class="{['issue_status_'+data.status.code]:true}">{{ data.title }}</span>
