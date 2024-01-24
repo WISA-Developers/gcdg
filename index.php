@@ -24,8 +24,13 @@ if (!in_array($request_extension, array('js', 'vue', 'ico'))) {
     $connect = new DBcon('mysql', (array) $config->session_db);
     $connect->connect();
 
+    if (preg_match('/^(118\.129\.243\.|172\.72\.72\.)/', $_SERVER['REMOTE_ADDR'])) {
+        $gc_maxlifetime = 3600 * 4;
+    } else {
+        $gc_maxlifetime = 3600 * 2;
+    }
     ini_set('session.cache_expire', 180);
-    ini_set('session.gc_maxlifetime', 7200);
+    ini_set('session.gc_maxlifetime', $gc_maxlifetime);
     ini_set('session.name', 'ep_session');
     new MySQLSession(new PDODatabase($connect->getPdoInstance()));
 }
