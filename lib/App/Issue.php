@@ -609,10 +609,43 @@ class Issue extends App {
             }
         }
 
-        $this->db
+        $r = $this->db
             ->table('issue')
             ->where('idx', '=', $request['idx'])
             ->update($request);
+
+        // 알림
+        if ($r->rowCount()) {
+            $current_staff_idx = $this->currentStaffIdx();
+            $_staffs = Staff::all([$current_staff_idx]);
+
+            $staffs = $this->db->table('issue_staff')
+                ->selectDistinct('staff_idx')
+                ->where('issue_idx', $issue->idx)
+                ->where('staff_idx', '!=', $current_staff_idx)
+                ->get();
+            $new_staffs = [$issue->creater_idx];
+            foreach ($staffs as $staff) {
+                $new_staffs[] = $staff->staff_idx;
+            }
+            $new_staffs = array_unique($new_staffs);
+            if ($new_staffs > 0) {
+                $message = sprintf(
+                    "[Issue Tracker] %s님에 의해 이슈 상태가 변경되었습니다.\n\n- %s\n\n%s --> %s",
+                    $_staffs[$current_staff_idx]->name,
+                    $issue->title,
+                    $this->issueStatus($issue->status),
+                    $this->issueStatus($request['status'])
+                );
+                $this->weagleEye()->call('sendWisaHelper', [
+                    'args1' => implode('@', $new_staffs),
+                    'args2' => $message,
+                    'args3' => 'cs',
+                    'args4' => '@@type=link@@link_text=이슈 확인@@link_url='.__URL__.'/#/issue/view/' . $issue->idx,
+                    'args7' => 'utf8'
+                ]);
+            }
+        }
 
         $this->output([
             'status' => 'success',
