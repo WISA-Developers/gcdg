@@ -6,6 +6,7 @@ resource/files
 resource/repository/
 resource/key/
 vendor/
+node_modules/
 testlogin.php
 .bash_history
 .cache/
