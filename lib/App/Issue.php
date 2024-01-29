@@ -624,7 +624,10 @@ class Issue extends App {
                 ->where('issue_idx', $issue->idx)
                 ->where('staff_idx', '!=', $current_staff_idx)
                 ->get();
-            $new_staffs = [$issue->creater_idx];
+            $new_staffs = [];
+            if ($issue->creater_idx != $current_staff_idx) {
+                $new_staffs[] = $issue->creater_idx;
+            }
             foreach ($staffs as $staff) {
                 $new_staffs[] = $staff->staff_idx;
             }
