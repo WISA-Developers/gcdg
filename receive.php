@@ -61,7 +61,11 @@ if (in_array($host['host'], [
     'smartwingch1.mywisa.com',
     'smartwingeng.mywisa.com',
     'smartwingjap.mywisa.com',
-    'smartwing.mywisa.com'
+    'smartwing.mywisa.com',
+    'm-smartwingeng.mywisa.com',
+    'm-smartwingch1.mywisa.com',
+    'm-smartwingch2.mywisa.com',
+    'm-smartwingjap.mywisa.com'
 ])) {
     exit(json_encode([
         'status' => 'denied',
@@ -78,7 +82,7 @@ if (preg_match('/(.*)\.mywisa\.(com|co\.kr)$/', $host_ep, $account_id)) {
 } else {
     $account = $qb->table('ep.account')
         ->select('idx')
-        ->where('domain', $host_ep)
+        ->where($qb->raw("replace(domain, 'www.', '')"), $host_ep)
         ->orWhere('domains', 'like', "%<{$host_ep}>%")
         ->first();
 }
