@@ -250,6 +250,14 @@ class Issue extends App {
             throw new CommonException('이슈 접근 권한이 없습니다.');
         }
 
+        // 프로젝트 명
+        $project = $this->db
+            ->table('project')
+            ->select('project_name')
+            ->where('idx', $data->project_idx)
+            ->first();
+        $data->project_name = $project->project_name;
+
         if ($data->plan_s == '0000-00-00') $data->plan_s = null;
         if ($data->plan_e == '0000-00-00') $data->plan_e = null;
 

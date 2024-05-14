@@ -13,6 +13,7 @@
 		<div class="contentArea">
 			<!-- 기본 정보 -->
 			<div class="bookmark" section="1">
+                <h3><a @click="$emit('project-select', data.project_idx);">{{ data.project_name }} > </a></h3>
 				<h2 class="title">
 					<i v-if="data.work_type=='N'" class="xi-new xi-1x"></i>
 					<i v-if="data.work_type=='E'" class="xi-plus-circle-o xi-1x"></i>
