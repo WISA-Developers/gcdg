@@ -51,6 +51,7 @@
 								<li v-for="staff in data.creater">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
+                                    {{ data.registerd }}&nbsp;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
 								</li>
 							</ul>
