@@ -128,7 +128,9 @@
 						{{ data.registerd }}
 					</td>
 					<td>{{ data.status.value }}</td>
-                    <td>{{ data.creater.name }}</td>
+                    <td>
+                        <span v-if="data.creater">{{ data.creater.name }}</span>
+                    </td>
 					<td class="left" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
 						<a href="#" @click.stop.prevent="view(data.idx)">
 							<span :class="{'xi-star': true, ['importance_'+data.importance]: true, 'attr_icon': true}">{{ data.importance }}</span>
