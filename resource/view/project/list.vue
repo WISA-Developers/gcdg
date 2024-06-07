@@ -80,14 +80,14 @@
 					<td class="left pc">
 						<div class="issue_list_staffs">
 							<li v-for="staff in data.admin">
-								{{ staff.name }}
+								<template v-if="staff">{{ staff.name }}</template>
 							</li>
 						</div>
 					</td>
 					<td class="left pc">
 						<div class="issue_list_staffs">
 							<li v-for="staff in data.staffs">
-								{{ staff.name }}
+                                <template v-if="staff">{{ staff.name }}</template>
 							</li>
 						</div>					
 					</td>
