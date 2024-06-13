@@ -1,15 +1,17 @@
 <template>
     <div class="input_auto" @click.stop="focus">
         <span>
-            <label v-for="people in selected" @click="remove">
-                {{ people.name }} &lt;{{ people.group_name }}&gt;
-                <input type="hidden" :name="name+'[]'" :value="people.idx">
-            </label>
+            <template v-for="people in selected" >
+                <label v-if="people" @click="remove">
+                    {{ people.name }} &lt;{{ people.group_name }}&gt;
+                    <input type="hidden" :name="name+'[]'" :value="people.idx">
+                </label>
+            </template>
         </span>
         <input type="text" class="input_text" @input="find" @keydown="keyControl" @blur="hide">
         <ul class="lists">
-            <li 
-                v-for="(staff, idx) in searched" 
+            <li
+                v-for="(staff, idx) in searched"
                 :class="{select: (idx==0) ? true : false}"
                 @click.prevent="staffClick"
             >
@@ -137,6 +139,7 @@ export default {
 
 			// 중복 체크
 			const exists = (this.selected.some((s) => {
+                if (!s) return false;
 				if (s.idx == this.searched[window.search_cursor].idx) return true;
 			}));
 			if (!exists) {
@@ -173,6 +176,7 @@ export default {
 		},
         add: function(staff) {
             this.selected.every(s => {
+                if (!s) return false;
                 if (s.idx == staff.idx) {
                     window.alert('이미 추가되어있습니다.');
                     staff = null;
@@ -191,6 +195,7 @@ export default {
 		if (this.search && this.search.length != this.selected.length) {
 			let selected = [];
 			this.selected.forEach(function(staff) {
+                if (!staff) return;
 				selected.push(staff.idx);
 			});
 			this.$emit('get-search', this.name, selected);
