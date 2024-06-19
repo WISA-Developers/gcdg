@@ -898,6 +898,10 @@ div.nodata {
 	color: var(--blurry-font-color);
 }
 
+.issue_status_T {
+	color: #9acf32;
+}
+
 /* project plan */
 .project_plan .tableHorizontal > tbody > tr > th, .project_plan .tableHorizontal > tbody > tr > td {
 	padding: 10px 0 !important;
