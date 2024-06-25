@@ -902,6 +902,12 @@ div.nodata {
 	color: #9acf32;
 }
 
+.issue_status_S,
+.issue_status_B,
+.issue_status_D {
+	color: #e3d77e;
+}
+
 /* project plan */
 .project_plan .tableHorizontal > tbody > tr > th, .project_plan .tableHorizontal > tbody > tr > td {
 	padding: 10px 0 !important;
