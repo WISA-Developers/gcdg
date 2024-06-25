@@ -115,7 +115,7 @@
 				<tr>
 					<th>수정권한</th>
 					<td>
-						<select name="permission" class="input_select">
+						<select name="permission" v-model="data.permission" class="input_select">
 							<option value="2">등록자와 담당자</option>
                             <option value="1">등록자만 수정</option>
 							<option value="0">전체</option>
