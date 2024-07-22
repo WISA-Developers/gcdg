@@ -71,7 +71,7 @@
 		}
 
 		const current_project_idx = window.localStorage.getItem('current_project_idx');
-		const token  = window.sessionStorage.getItem('token') || '';
+		const token  = window.localStorage.getItem('token') || '';
 		fetch('/api/staff/me?current_project_idx='+current_project_idx+'&token='+token)
 			.then((response) => response.json())
 			.then((me) => {
@@ -87,7 +87,7 @@
 				}
 
 				// 설정
-				window.sessionStorage.setItem('token', me.token);
+				window.localStorage.setItem('token', me.token);
 
 				const routes = [
 					{path: '/', component: () => loadModule('/dashboard/index.vue', options), alias: '/dashboard'},
@@ -155,7 +155,7 @@
 						}
 					},
 					created: function() {
-						window.sessionStorage.setItem('token', me.token);
+						window.localStorage.setItem('token', me.token);
 					}
 				});
 				app.use(router);

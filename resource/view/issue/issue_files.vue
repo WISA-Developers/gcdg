@@ -128,7 +128,7 @@ export default {
 				imageViewer('/api/file/download/'+file.idx);
 			} else {
 				if (confirm('파일을 다운로드 하시겠습니까?')) {
-					location .href = '/api/file/download/'+file.idx+'?token='+window.sessionStorage.getItem('token');
+					location .href = '/api/file/download/'+file.idx+'?token='+window.localStorage.getItem('token');
 				}
 			}
 			return true;

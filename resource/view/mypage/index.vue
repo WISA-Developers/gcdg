@@ -151,7 +151,7 @@ export default {
 		signout: function() {
 			api('/api/staff/signout')
 				.then(() => {
-                    window.sessionStorage.setItem('token', '');
+                    window.localStorage.setItem('token', '');
 					location.reload();
 				});
 		},

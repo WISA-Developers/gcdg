@@ -19,7 +19,7 @@ const options = {
 const { loadModule } = window["vue3-sfc-loader"];
 
 function api(url, method, param) {
-	const token = window.sessionStorage.getItem('token');
+	const token = window.localStorage.getItem('token');
 	let   body  = null;
 
 	if (!method) method = 'GET';
@@ -208,7 +208,7 @@ function ajaxUpload(data, blob, callback)
     $.ajax({
         type: 'POST',
         enctype: 'multipart/form-data',
-        url: '/api/file/upload?token='+window.sessionStorage.getItem('token'),
+        url: '/api/file/upload?token='+window.localStorage.getItem('token'),
         data: formData,
         dataType: 'json',
         processData: false,
@@ -236,7 +236,7 @@ function removeLoading() {
 
 function imageViewer(filename)
 {
-	const token = window.sessionStorage.getItem('token');
+	const token = window.localStorage.getItem('token');
 	const viewer = $('<div id="image_viewer"><img src="'+filename+'?token='+token+'"></div>');
 	$('body').append(viewer);
 	viewer.on('click', function() {
