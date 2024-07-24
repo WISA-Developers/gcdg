@@ -53,6 +53,8 @@ class App {
      **/
     public function currentStaffIdx()
     {
+        global $define;
+        
         if (isset($_REQUEST['token'])) {
             $data = $this->db
                 ->table('api_key')
@@ -70,7 +72,16 @@ class App {
                 throw new CommonException('사용이 중지된 API키 입니다.', 9999);
             }
 
-            if ($data) return $data->staff_idx;
+            if ($data) {
+                // 토큰 연장
+                $this->db
+                    ->table('api_key')
+                    ->where('apiKey', $_REQUEST['token'])
+                    ->update([
+                        'expire_date' => date('Y-m-d H:i:s', strtotime('+'.$define->token_lifetime))
+                    ]);
+                return $data->staff_idx;
+            }
 
             throw new CommonException('API키가 만료되었거나 정확하지 않습니다.', 9999);
         }
