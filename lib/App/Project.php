@@ -296,6 +296,7 @@ class Project extends App {
             ])
             ->leftjoin(['project_staff', 's'], 's.project_idx', '=', 'p.idx')
             ->where('s.staff_idx', $this->currentStaffIdx())
+            ->whereNotIn('p.status', ['C', 'H'])
             ->groupBy('p.idx')
             ->orderBy('p.registerd', 'desc')
             ->get();

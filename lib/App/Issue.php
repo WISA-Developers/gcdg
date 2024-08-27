@@ -141,6 +141,15 @@ class Issue extends App {
                 }
             });
         }
+        $pagetype = $parsed_uri->getParameter('pagetype');
+        if ($pagetype) {
+            $pagetype = explode(',', $pagetype);
+            $qry->where(function(object $qb) use ($pagetype) {
+                foreach ($pagetype as $_pagetype) {
+                    $qb->orWhere('i.pagetype', 'like', '%'.$_pagetype.'|%');
+                }
+            });
+        }
         $plan_s = $parsed_uri->getParameter('plan_s');
         $plan_e = $parsed_uri->getParameter('plan_e');
         if ($plan_s && $plan_e) {
@@ -201,6 +210,7 @@ class Issue extends App {
                 'value' => $this->issueStatus($data->status)
             ];
             $data->device = ($data->device) ? explode('|', trim($data->device, '|')) : [];
+            $data->pagetype = ($data->pagetype) ? explode('|', trim($data->pagetype, '|')) : [];
 
             $data->staffs_all = ($data->staffs_all) ? explode(',', $data->staffs_all) : [];
             foreach ($data->staffs_all as $_staff_idx) {
@@ -363,6 +373,9 @@ class Issue extends App {
         // 관련 디바이스
         $data->device = ($data->device) ? explode('|', trim($data->device, '|')) : [];
 
+        // 페이지
+        $data->pagetype = ($data->pagetype) ? explode('|', trim($data->pagetype, '|')) : [];
+
         // 저장소
         if ($data->repository) {
             $data->repository = json_decode($data->repository);
@@ -428,6 +441,10 @@ class Issue extends App {
 
         if (isset($_POST['device']) && is_array($_POST['device'])) {
             $data['device'] = implode('|', $_POST['device']).'|';
+        }
+
+        if (isset($_POST['pagetype']) && is_array($_POST['pagetype'])) {
+            $data['pagetype'] = implode('|', $_POST['pagetype']).'|';
         }
 
         if (isset($_POST['repository']) && is_array($_POST['repository'])) {

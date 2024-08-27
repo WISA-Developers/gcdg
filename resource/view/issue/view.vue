@@ -149,6 +149,14 @@
 							</ul>
 						</td>
 					</tr>
+                    <tr v-if="data.pagetype.length > 0">
+                        <th>위치</th>
+                        <td>
+                            <ul class="staffs_role">
+                                <li v-for="pagetype in data.pagetype">{{ pagetype }}</li>
+                            </ul>
+                        </td>
+                    </tr>
 					<tr>
 						<th>중요도</th>
 						<td>
@@ -340,6 +348,7 @@ export default {
             idx : null,
 			data: {
 				device: [],
+                pagetype: [],
                 repository: [],
                 account: []
 			},

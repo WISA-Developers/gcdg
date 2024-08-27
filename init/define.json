@@ -25,10 +25,14 @@
         "C": "배포",
         "H": "홀드",
         "J": "반려",
+        "G": "중복",
         "N": "완료"
     },
     "date_format": "Y/m/d H:i",
     "devices": [
         "PC", "android", "IOS", "APP"
+    ],
+    "pagetype": [
+        "전체", "Front", "Admin", "기타"
     ]
 }

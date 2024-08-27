@@ -889,6 +889,10 @@ div.nodata {
 	color: #424242;
 }
 
+.issue_status_G {
+	color: #424242;
+}
+
 .issue_status_J {
 	color: #ff9999;
 	text-decoration: line-through;

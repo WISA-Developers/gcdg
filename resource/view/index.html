@@ -90,7 +90,7 @@
 				window.localStorage.setItem('token', me.token);
 
 				const routes = [
-					{path: '/', component: () => loadModule('/dashboard/index.vue', options), alias: '/dashboard'},
+					{name: 'dashboard', path: '/', component: () => loadModule('/dashboard/index.vue', options), alias: '/dashboard/:project_idx?'},
 					{path: '/issue', component: () => loadModule('/issue/index.vue', options)},
 					{path: '/issue/view/:idx', component: () => loadModule('/issue/view.vue', options)},
 					{path: '/issue/ticket', component: () => loadModule('/issue/ticket.vue', options)},
@@ -103,7 +103,7 @@
 					{path: '/project', component: () => loadModule('/project/list.vue', options)},
 					{path: '/project/create', component: () => loadModule('/project/create.vue', options)},
 					{path: '/project/create/:idx', component: () => loadModule('/project/create.vue', options)},
-					{path: '/project/select', component: () => loadModule('/project/select.vue', options)},
+					{name: 'project_select', path: '/project/select', component: () => loadModule('/project/select.vue', options)},
 					{path: '/mypage', component: () => loadModule('/mypage/index.vue', options)}
 				];
 
@@ -144,18 +144,15 @@
 							api('/api/staff/me?current_project_idx=' + project_idx)
 								.then((me) => {
 									this.staff = me.staff;
-									if (this.$router.currentRoute.value.path == '/dashboard') {
+									if (this.$route.name == 'dashboard') {
 										//router.go(0);
 									} else {
 										this.$router.push({
-											path: '/dashboard'
+											path: '/dashboard/' + project_idx
 										});
 									}
 								});
 						}
-					},
-					created: function() {
-						window.localStorage.setItem('token', me.token);
 					}
 				});
 				app.use(router);

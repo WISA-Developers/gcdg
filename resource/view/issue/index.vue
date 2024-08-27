@@ -78,6 +78,17 @@
 				</ul>
 			</fieldset>
 
+            <fieldset>
+                <legend>위치</legend>
+                <ul>
+                    <li v-for="pagetype in define_config.pagetype">
+                        <label>
+                            <input type="checkbox" :value="pagetype" v-model="search.pagetype" @click.ctrl="checkboxRadio('pagetype', $event)"> {{ pagetype }}
+                        </label>
+                    </li>
+                </ul>
+            </fieldset>
+
 			<fieldset class="m_half">
 				<legend>일정</legend>
 				<div class="cal">
@@ -190,6 +201,7 @@ export default {
 				content: null,
 				importance: 0,
 				device: [],
+                pagetype: [],
 				plan_s: null,
 				plan_e: null,
 				registerd_s: null,

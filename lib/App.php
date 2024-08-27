@@ -54,7 +54,7 @@ class App {
     public function currentStaffIdx()
     {
         global $define;
-        
+
         if (isset($_REQUEST['token'])) {
             $data = $this->db
                 ->table('api_key')
@@ -209,7 +209,7 @@ class App {
     {
         global $define;
 
-        if ($type == 'token' && isset($_REQUEST['token'])) {
+        if ($type == 'token') {
             $data = $this->db
                 ->table('api_key')
                 ->where('apikey', $_REQUEST['token'])

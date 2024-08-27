@@ -162,6 +162,14 @@
 						</label>
 					</td>
 				</tr>
+                <tr>
+                    <th>위치</th>
+                    <td>
+                        <label v-for="pagetype in define_config.pagetype">
+                            <input type="checkbox" name="pagetype[]" v-model="data.pagetype" :value="pagetype"> {{ pagetype }}
+                        </label>
+                    </td>
+                </tr>
 				<tr>
 					<td colspan="2" style="padding: 10px 0">
 						<div id="editor"></div>
@@ -192,6 +200,7 @@ export default {
 				importance: '0',
 				permission: '0',
 				device: [],
+                pagetype: [],
 				referer: []
 			}
 		}
@@ -249,8 +258,24 @@ export default {
 					}
 				},
 				plugins: [codeSyntaxHighlight],
-				theme: (window.localStorage.getItem('site-darkmode') == 'Y') ? 'dark' : ''
-			});
+				theme: (window.localStorage.getItem('site-darkmode') == 'Y') ? 'dark' : '',
+                customHTMLRenderer: {
+                    htmlBlock: {
+                        iframe(node) {
+                            return [
+                                {
+                                    type: 'openTag',
+                                    tagName: 'iframe',
+                                    outerNewLine: true,
+                                    attributes: node.attrs
+                                },
+                                { type: 'html', content: node.childrenHTML },
+                                { type: 'closeTag', tagName: 'iframe', outerNewLine: true }
+                            ];
+                        }
+                    }
+                }
+            });
 		}
 	},
 	mounted: function() {
