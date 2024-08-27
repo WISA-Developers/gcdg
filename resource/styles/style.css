@@ -890,7 +890,7 @@ div.nodata {
 }
 
 .issue_status_G {
-	color: #424242;
+	text-decoration: line-through;
 }
 
 .issue_status_J {
@@ -910,6 +910,10 @@ div.nodata {
 .issue_status_B,
 .issue_status_D {
 	color: #e3d77e;
+}
+
+.issue_status_E {
+	color: #9797a9;
 }
 
 /* project plan */
