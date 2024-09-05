@@ -912,7 +912,8 @@ div.nodata {
 	color: #e3d77e;
 }
 
-.issue_status_E {
+.issue_status_E,
+.issue_status_A {
 	color: #9797a9;
 }
 
