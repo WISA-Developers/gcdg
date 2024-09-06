@@ -109,6 +109,11 @@ blockquote {
 	text-align: justify;
 }
 
+.toastui-editor-contents img {
+	padding: 5px;
+	border: dashed 1px #ccc;
+}
+
 span.token.operator {
 	background-color: transparent;
 }
@@ -322,6 +327,11 @@ a.mini_link {
 .table .left.content {
 	position: relative;
 	min-height: 35px;
+}
+
+.table .left.content img {
+	padding: 5px;
+	border: dashed 1px #ccc;
 }
 
 .table .left.content .buttons, h2 .buttons {
@@ -909,7 +919,7 @@ div.nodata {
 .issue_status_S,
 .issue_status_B,
 .issue_status_D {
-	color: #e3d77e;
+	color: #9a8e44;
 }
 
 .issue_status_E,
