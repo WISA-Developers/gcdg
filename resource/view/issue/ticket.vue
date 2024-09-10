@@ -223,6 +223,18 @@ export default {
 			form.disabled = true;
 			form.content.value = this.Editor.getMarkdown();
 
+            if (this.$route.params.project_idx) {
+                if (form.project_idx) {
+                    form.project_idx.value = this.$route.params.project_idx;
+                } else {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'project_idx';
+                    input.value = this.$route.params.project_idx;
+                    form.appendChild(input)
+                }
+            }
+
 			api('/api/issue/set', 'post', form)
 				.then((ret) => {
 					removeLoading();

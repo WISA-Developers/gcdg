@@ -234,22 +234,25 @@ function removeLoading() {
     $('#dimmed').remove();
 }
 
-function imageViewer(filename)
+function imageViewer(filename, type)
 {
 	const token = window.localStorage.getItem('token');
-	const viewer = $('<div id="image_viewer"><img src="'+filename+'?token='+token+'"></div>');
+	const src = filename + '?token=' + token;
+	const content = (type == 'video') ?
+		'<video controls width="800"><source src="' + src + '"></video>' :
+		'<img src="' + src + '">';
+	const viewer = $('<div id="image_viewer">' + content + '</div>');
 	$('body').append(viewer);
 	viewer.on('click', function() {
 		$(this).remove();
 	});
-
 }
 
 function floating(message)
 {
 	const _f = $('<div class="floating"><i class="xi-note xi-2x" style="color: var(--point-color);"></i><span></span></div>');
 	$('body').append(_f);
-	
+
 	_f.find('span').html(message);
 	_f.fadeIn(500).css('display', 'flex').delay(1000).fadeOut(500, function() {
 		_f.remove();

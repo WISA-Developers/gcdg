@@ -86,6 +86,9 @@ class Issue extends App {
     public function index(ParsedURI $parsed_uri)
     {
         $project_idx = $this->currentProjectIdx();
+        if (isset($_GET['project_idx'])) {
+            $project_idx = (int) $_GET['project_idx'];
+        }
         $page = (int) $parsed_uri->getParameter('page', 1);
         $limit = (int) $parsed_uri->getParameter('limit', 10);
 

@@ -257,7 +257,10 @@ export default {
     },
 	methods: {
 		hashchanged: function() {
-			if (this.$router.currentRoute.value.path != '/issue') return false;
+			if (
+                this.$router.currentRoute.value.path != '/issue' &&
+                this.$router.currentRoute.value.path != '/' + this.$route.params.project_idx + '/issue'
+            ) return false;
 
 			clearTimeout(window.search_interval);
 			window.search_interval = setTimeout(() => {
@@ -277,8 +280,12 @@ export default {
 			}
 		},
 		reload: function() {
+            const params = {...this.search};
+            if (this.$route.params.project_idx) {
+                params.project_idx = this.$route.params.project_idx;
+            }
 			//this.loading = true;
-			api('/api/issue/index', 'get', proxyToQuery(this.search)).then((ret) => {
+			api('/api/issue/index', 'get', proxyToQuery(params)).then((ret) => {
 				if (ret.status == 'success') {
 					this.list = ret.data;
 					this.paginator = ret.paginator;
@@ -300,8 +307,11 @@ export default {
 			});
 		},
 		ticket: function() {
+            const project_idx = (this.$route.params.project_idx) ?
+                this.$route.params.project_idx :
+                window.localStorage.getItem('current_project_idx');
 			this.$router.push({
-				path: '/issue/ticket'
+				path: '/' + project_idx + '/issue/ticket'
 			});
 		},
         searchMe: function() {

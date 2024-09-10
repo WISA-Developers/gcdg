@@ -50,6 +50,7 @@ if (preg_match('/^Base64,/', $trace)) {
 $type = 'FATAL';
 if ($query) $type = 'Query';
 if ($exception == 'Injection' || $exception == 'BadQuery') $type = 'Injection';
+if ($message == 'MySQL server has gone away') $exception = 'MySQLTimeout';
 
 $host = parse_url($host);
 parse_str($host['query'], $params);
