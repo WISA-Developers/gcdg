@@ -118,11 +118,29 @@ span.token.operator {
 	background-color: transparent;
 }
 
+.button_set {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	margin: 5px 0;
+	gap: 5px;
+}
+
 a.mini_link {
-	font-size: 0.9em;
-	font-weight: bold;
-	color: #ff8400;
+	display: block;
+	width: 100%;
+	border: solid 1px #e5e5e5;
+	background: #fff;
+	padding: 5px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 0.8em;
+	font-weight: 700;
 	cursor: pointer;
+}
+
+a.mini_link[disabled=true] {
+	background: #f8f8f8;
+	color: #333;
 }
 
 /* gnb */
