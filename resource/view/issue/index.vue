@@ -48,10 +48,10 @@
 
                 <div class="button_set">
                     <div>
-                        <a @click="searchMe" class="mini_link" :disabled="isSearchMe" >내가 담당자인 이슈</a>
+                        <a @click="searchMe" class="mini_link" :active="isSearchMe" >내가 담당자인 이슈</a>
                     </div>
                     <div>
-                        <a @click="searchMine" class="mini_link" :disabled="isSearchMine">내가 작성한 이슈</a>
+                        <a @click="searchMine" class="mini_link" :active="isSearchMine">내가 작성한 이슈</a>
                     </div>
                 </div>
 			</fieldset>

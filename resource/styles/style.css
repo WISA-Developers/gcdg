@@ -138,8 +138,9 @@ a.mini_link {
 	cursor: pointer;
 }
 
-a.mini_link[disabled=true] {
-	background: #f8f8f8;
+a.mini_link[active=true] {
+	background: #e5f3ff;
+	border: solid 1px var(--table-border-strong-color);
 	color: #333;
 }
 
