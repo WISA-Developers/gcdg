@@ -124,7 +124,7 @@
 		</form>
 
 		<div class="contentArea">
-			<h2 class="title"><i class="xi-view-list xi-1x"></i> '{{ me.current_project_name }}' 이슈 목록</h2>
+			<h2 class="title"><i class="xi-view-list xi-1x"></i> '{{ project_name }}' 이슈 목록</h2>
 			<table class="table tableHorizontal flexible">
 				<colgroup>
 						<col style="width:110px;">
@@ -218,6 +218,7 @@ export default {
 				modified_s: null,
 				modified_e: null
 			},
+            project_name: '',
 			list: [],
 			page: 1,
 			paginator: null,
@@ -303,6 +304,7 @@ export default {
 			//this.loading = true;
 			api('/api/issue/index', 'get', proxyToQuery(params)).then((ret) => {
 				if (ret.status == 'success') {
+                    this.project_name = ret.project_name;
 					this.list = ret.data;
 					this.paginator = ret.paginator;
 				}

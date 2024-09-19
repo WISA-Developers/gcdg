@@ -235,8 +235,14 @@ class Issue extends App {
             }
         }
 
+        $project = $this->db->table('project')
+            ->select('project_name')
+            ->where('idx', $project_idx)
+            ->first();
+
         $this->output([
             'status' => 'success',
+            'project_name' => $project->project_name,
             'data' => $res,
             'page' => $page,
             'paginator' => (string) $paginator,
