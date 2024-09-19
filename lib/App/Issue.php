@@ -129,7 +129,7 @@ class Issue extends App {
         $role_type = $parsed_uri->getParameter('role_type');
         if ($role) {
             if ($role_type == 'writer') {
-                $qry->where('i.creater_idx', $role);
+                $qry->whereIn('i.creater_idx', explode(',', $role));
             } else {
                 $qry->join(['issue_staff', 's2'], 'i.idx', '=', 's2.issue_idx');
                 $qry->where(function($qb) use($role, $role_type) {
@@ -137,7 +137,7 @@ class Issue extends App {
                     if ($role_type) {
                         $qb->where('s2.role', $role_type);
                     } else {
-                        $qb->orWhere('i.creater_idx', $role);
+                        $qb->orWhereIn('i.creater_idx', explode(',', $role));
                     }
                 });
             }
