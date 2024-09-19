@@ -36,6 +36,7 @@
                     <option value="tester">검수자</option>
                     <option value="referer">참조자</option>
                     <option value="checker">최종확인자</option>
+                    <option value="writer">작성자</option>
                 </select>
 				<staffs_search
                     ref="role"
@@ -44,7 +45,8 @@
 					:search.sync="search.role" 
 					@get-search="getSearch"
 				></staffs_search>
-                <a v-if="isSearchMe" @click="searchMe" class="mini_link">+ 내가 담당자인 이슈 검색</a>
+                <a v-if="!isSearchMe" @click="searchMe" class="mini_link">+ 내가 담당자인 이슈</a>
+                <a v-if="!isSearchMine" @click="searchMine" class="mini_link">+ 내가 작성한 이슈</a>
 			</fieldset>
 
 			<fieldset>
@@ -246,13 +248,20 @@ export default {
 	},
     computed: {
         isSearchMe: function() {
-            if (!this.$route.query.role) return true;
-
-            this.$route.query.role.split(',').some(s => {
-                if (this.me.staff_idx == s) {
-                    return true;
-                }
-            });
+            if (this.search.role_type == '' && this.$route.query.role) {
+                let matched = false;
+                this.$route.query.role.split(',').some(s => {
+                    if (this.me.staff_idx == s) {
+                        matched = true;
+                        return true;
+                    }
+                });
+                return matched;
+            }
+            return false;
+        },
+        isSearchMine: function() {
+            return (this.search.role_type == 'writer' && this.me.staff_idx == this.$route.query.role);
         }
     },
 	methods: {
@@ -315,6 +324,18 @@ export default {
 			});
 		},
         searchMe: function() {
+            this.search.role_type = '';
+            this.$refs.role.clear();
+            this.$refs.role.add({
+                idx: this.me.staff_idx,
+                name: this.me.name,
+                group_name: this.me.group_name,
+                portrait: this.me.portrait
+            });
+        },
+        searchMine: function() {
+            this.search.role_type = 'writer';
+            this.$refs.role.clear();
             this.$refs.role.add({
                 idx: this.me.staff_idx,
                 name: this.me.name,

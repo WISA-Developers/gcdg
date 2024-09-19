@@ -82,7 +82,6 @@ class Issue extends App {
         return false;
     }
 
-
     public function index(ParsedURI $parsed_uri)
     {
         $project_idx = $this->currentProjectIdx();
@@ -129,10 +128,18 @@ class Issue extends App {
         $role = $parsed_uri->getParameter('role');
         $role_type = $parsed_uri->getParameter('role_type');
         if ($role) {
-            $qry->join(['issue_staff', 's2'], 'i.idx', '=', 's2.issue_idx');
-            $qry->whereIn('s2.staff_idx', is_array($role) ? $role : explode(',', $role));
-            if ($role_type) {
-                $qry->where('s2.role', $role_type);
+            if ($role_type == 'writer') {
+                $qry->where('i.creater_idx', $role);
+            } else {
+                $qry->join(['issue_staff', 's2'], 'i.idx', '=', 's2.issue_idx');
+                $qry->where(function($qb) use($role, $role_type) {
+                    $qb->whereIn('s2.staff_idx', is_array($role) ? $role : explode(',', $role));
+                    if ($role_type) {
+                        $qb->where('s2.role', $role_type);
+                    } else {
+                        $qb->orWhere('i.creater_idx', $role);
+                    }
+                });
             }
         }
         $device = $parsed_uri->getParameter('device');

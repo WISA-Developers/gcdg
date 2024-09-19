@@ -186,6 +186,9 @@ export default {
             if (staff) {
                 this.selected.push(staff);
             }
+        },
+        clear: function() {
+            this.selected = [];
         }
 	},
 	mounted: function() {

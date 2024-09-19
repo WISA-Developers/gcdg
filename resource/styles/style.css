@@ -225,7 +225,7 @@ a.mini_link {
 
 .leftArea > fieldset > ul {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr); 
+	grid-template-columns: repeat(4, 1fr);
 	grid-gap: 3px;
 	margin: 0;
 	padding: 0;
@@ -238,7 +238,7 @@ a.mini_link {
 	height: 100%;
 	border: dashed 1px transparent;
 	cursor: pointer;
-	font-size: 0.9em;
+	font-size: 0.85em;
 }
 
 .leftArea > fieldset > ul > li > label:hover {
