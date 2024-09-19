@@ -15,7 +15,10 @@
 		<tbody>
 		<tr v-for="comment in comments">
 			<td class="date">{{ comment.registerd  }} </td>
-			<td>{{ comment.creater.name }}</td>
+			<td>
+                <span v-if="comment.creater && comment.creater.name">{{ comment.creater.name }}</span>
+                <span v-else style="color: #999">-</span>
+            </td>
 			<td class="left content" style="padding-right: 60px">
 				<div class="issue_comment_content" :data-idx="comment.idx" v-html="comment.content"></div>
 				<div class="buttons">
