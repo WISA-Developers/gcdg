@@ -36,7 +36,7 @@ class MySQLSession extends SessionHandler
         $session = $this->db->row("select $field from ".SELF::TABLE." where session_id='$id'");
         if ($session == false) $session = '';
 
-        $session = preg_replace('/STAFF_NAME[^;]+";/', '', $session);
+        $session = preg_replace('/STAFF_NAME[^;]+";/i', '', $session);
 
         return $session;
     }
