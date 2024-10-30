@@ -531,7 +531,7 @@ export default {
             if (this.previous_url) location.href = this.previous_url;
             else {
                 this.$router.push({
-                    path: '/issue'
+                    path: '/' + this.data.project_idx + '/issue'
                 })
             }
 		},
