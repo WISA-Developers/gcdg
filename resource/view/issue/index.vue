@@ -222,7 +222,8 @@ export default {
 			list: [],
 			page: 1,
 			paginator: null,
-			loading: true
+			loading: true,
+            queue: 0 // fifo 체크를 위한 큐 번호
 		})
 	},
 	watch: {
@@ -297,6 +298,9 @@ export default {
 			}
 		},
 		reload: function() {
+            this.queue = Date.now();
+            const queue = this.queue;
+
             const params = {...this.search};
             if (this.$route.params.project_idx) {
                 params.project_idx = this.$route.params.project_idx;
@@ -304,6 +308,9 @@ export default {
 			//this.loading = true;
 			api('/api/issue/index', 'get', proxyToQuery(params)).then((ret) => {
 				if (ret.status == 'success') {
+                    if (this.queue != queue) {
+                        return;
+                    }
                     this.project_name = ret.project_name;
 					this.list = ret.data;
 					this.paginator = ret.paginator;
