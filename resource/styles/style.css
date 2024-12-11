@@ -98,7 +98,7 @@ label {
 .v-leave-active {
 	transition: all 0.3s ease;
 	position: absolute;
-	width: calc(100% - 20px);
+	width: 100%;
 }
 .v-enter-from {
 	opacity: 0;
