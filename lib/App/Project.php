@@ -10,15 +10,16 @@ use Wisa\Gcdg\ParsedURI;
 use Wisa\Gcdg\Exceptions\CommonException;
 use JasonGrimes\Paginator;
 use Zeuxisoo\Core\Validator;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 
 class Project extends App {
 
-    protected $db;
+    protected QueryBuilderHandler $db;
     protected $config;
 
-    public function __construct($sql, $config)
+    public function __construct(QueryBuilderHandler $db, $config)
     {
-        $this->db = $sql;
+        $this->db = $db;
         $this->config = $config;
     }
 

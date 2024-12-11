@@ -3,15 +3,20 @@
 namespace Wisa\Gcdg;
 
 use Wisa\Gcdg\weagleEyeClientMini;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 use Wisa\Gcdg\Exceptions\CommonException;
 use donatj\phpuseragentparser;
 
 class App {
 
-    protected $db;
+    protected QueryBuilderHandler $db;
     protected $config;
 
-    public function __construct($db, $config)
+    /**
+     * @param QueryBuilderHandler $db
+     * @param $config
+     */
+    public function __construct(QueryBuilderHandler $db, $config)
     {
         $this->db = $db;
         $this->config = $config;

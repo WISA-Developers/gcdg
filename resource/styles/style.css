@@ -94,6 +94,19 @@ label {
 	display: none; 
 }
 
+.v-enter-active,
+.v-leave-active {
+	transition: all 0.3s ease;
+	position: absolute;
+	width: calc(100% - 20px);
+}
+.v-enter-from {
+	opacity: 0;
+}
+.v-leave-to {
+	opacity: 0;
+}
+
 body {
 	background-color: var(--main-background-color);
 }

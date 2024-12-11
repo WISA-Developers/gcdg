@@ -8,11 +8,12 @@ use Wisa\Gcdg\App\File;
 use Wisa\Gcdg\ParsedURI;
 use Wisa\Gcdg\Exceptions\CommonException;
 use JasonGrimes\Paginator;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 use Zeuxisoo\Core\Validator;
 
 class Issue extends App {
 
-    protected $db;
+    protected  QueryBuilderHandler $db;
     protected $define;
 
     public function __construct($sql, $define)
@@ -82,6 +83,12 @@ class Issue extends App {
         return false;
     }
 
+    /**
+     * 이슈 리스트 출력
+     * @param ParsedURI $parsed_uri
+     * @return void
+     * @throws CommonException
+     */
     public function index(ParsedURI $parsed_uri)
     {
         $project_idx = $this->currentProjectIdx();
@@ -100,12 +107,6 @@ class Issue extends App {
             ->select(['i.*', $this->db->raw('group_concat(distinct(s.staff_idx)) as staffs_all')])
             ->leftjoin(['issue_staff', 's'], 'i.idx', '=', 's.issue_idx')
             ->where('i.project_idx', $project_idx)
-            /*
-            ->where(function(object $qb) {
-                $qb->where('s.role', '!=', 'referer');
-                $qb->orWhereNull('s.role');
-            })
-            */
             ->groupBy('i.idx');
 
         if (!$this->projectPermission('admin,project_admin,member,developer', $project_idx)) {

@@ -10,15 +10,16 @@ use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
 use Jfcherng\Diff\Renderer\RendererConstant;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 
 class Repository extends App {
 
-    protected $db;
+    protected QueryBuilderHandler $db;
     protected $config;
     private   $repoinfo;
     private   $instance;
 
-    public function __construct($db, $config)
+    public function __construct(QueryBuilderHandler $db, $config)
     {
         $this->db = $db;
         $this->config = $config;

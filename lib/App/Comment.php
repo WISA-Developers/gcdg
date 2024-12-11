@@ -9,16 +9,17 @@ use Wisa\Gcdg\ParsedURI;
 use Wisa\Gcdg\Exceptions\CommonException;
 use JasonGrimes\Paginator;
 use Zeuxisoo\Core\Validator;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 
 class Comment extends App {
 
-    protected $db;
+    protected QueryBuilderHandler $db;
     protected $config;
     private   $issue;
 
-    public function __construct($sql, $config)
+    public function __construct(QueryBuilderHandler $db, $config)
     {
-        $this->db = $sql;
+        $this->db = $db;
         $this->config = $config;
         $this->issue = new Issue($this->db, $this->config);
     }

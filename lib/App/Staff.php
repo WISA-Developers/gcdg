@@ -6,10 +6,11 @@ use Wisa\Gcdg\App;
 use Wisa\Gcdg\ParsedURI;
 use Wisa\Gcdg\Exceptions\CommonException;
 use Pecee\Pixie\Connection as DBcon;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 
 class Staff extends App {
 
-    protected $db;
+    protected QueryBuilderHandler $db;
     protected $config;
     private $ep;
 

@@ -5,16 +5,17 @@ namespace Wisa\Gcdg\App;
 use Wisa\Gcdg\App;
 use Wisa\Gcdg\App\Staff;
 use Wisa\Gcdg\ParsedURI;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 use Wisa\Gcdg\Exceptions\CommonException;
 
 class Schedule extends App {
 
-    protected $db;
+    protected QueryBuilderHandler $db;
     protected $config;
 
-    public function __construct($sql, $config)
+    public function __construct(QueryBuilderHandler $db, $config)
     {
-        $this->db = $sql;
+        $this->db = $db;
         $this->config = $config;
     }
 

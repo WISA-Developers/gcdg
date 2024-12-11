@@ -63,7 +63,9 @@
 				</div>
 			</div>
 			<router-view v-slot="{ Component }">
-				<component :is="Component" :me="staff" ref="content" @project-select="projectSelect" />
+                <transition>
+				    <component :is="Component" :me="staff" ref="content" @project-select="projectSelect" />
+				</transition>
 			</router-view>
 		</div>
 
