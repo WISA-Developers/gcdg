@@ -127,12 +127,6 @@ blockquote {
 	border: dashed 1px #ccc;
 }
 
-.toastui-editor-contents code {
-	background-color: #d9f7ff !important;
-	color: #0095ff !important;
-	font-size: 12px !important;
-}
-
 span.token.operator {
 	background-color: transparent;
 }
