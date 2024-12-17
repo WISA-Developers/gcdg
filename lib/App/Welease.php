@@ -4,6 +4,7 @@ namespace Wisa\Gcdg\App;
 
 use Wisa\Gcdg\App;
 use Wisa\Gcdg\ParsedURI;
+use Pecee\Pixie\QueryBuilder\QueryBuilderHandler;
 use Wisa\Gcdg\App\SVN;
 use Wisa\Gcdg\Exceptions\CommonException;
 use Zeuxisoo\Core\Validator;
@@ -13,11 +14,11 @@ use Symfony\Component\HttpClient\Exception\ClientException;
 class Welease extends App
 {
 
-    protected $db;
+    protected QueryBuilderHandler $db;
     protected $config;
     private $ep;
 
-    public function __construct($db, $config)
+    public function __construct(QueryBuilderHandler  $db, $config)
     {
         $this->db = $db;
         $this->config = $config;
