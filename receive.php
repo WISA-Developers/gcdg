@@ -66,7 +66,8 @@ if (in_array($host['host'], [
     'm-smartwingeng.mywisa.com',
     'm-smartwingch1.mywisa.com',
     'm-smartwingch2.mywisa.com',
-    'm-smartwingjap.mywisa.com'
+    'm-smartwingjap.mywisa.com',
+    'skinsmartwing.mywisa.com',
 ])) {
     exit(json_encode([
         'status' => 'denied',
