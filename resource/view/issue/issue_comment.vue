@@ -29,6 +29,9 @@
 		</tr>					
 		</tbody>
 	</table>
+    <div class="bottom">
+        <div class="page_block" v-html="paginator"></div>
+    </div>
 	<div>
 		<div id="comment"></div>
 	</div>
@@ -36,7 +39,6 @@
 		<div>
 			<label style="font-size: 0.9em;"><input type="checkbox" v-model="push"> 사내 메신저로 수신자에게 알림</label>
 		</div>
-        <div class="page_block" v-html="paginator"></div>
         <div class="button_block">
 			<span class="button ok"><input type="button" value="등록" @click="set(null)"></span>
 		</div>
