@@ -2,7 +2,7 @@ if (window.localStorage.getItem('site-darkmode') == 'Y') {
     document.querySelector('body').classList.add('darkmode');
 }
 
-const current_project_idx = window.localStorage.getItem('current_project_idx');
+let   current_project_idx = window.localStorage.getItem('current_project_idx');
 const token  = window.localStorage.getItem('token') || '';
 fetch('/api/staff/me?current_project_idx='+current_project_idx+'&token='+token)
     .then((response) => response.json())
@@ -66,6 +66,7 @@ fetch('/api/staff/me?current_project_idx='+current_project_idx+'&token='+token)
             },
             computed: {
                 project_idx: function() {
+                    current_project_idx = window.localStorage.getItem('current_project_idx');
                     return this.$route.params.project_idx || current_project_idx;
                 }
             },
