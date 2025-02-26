@@ -54,6 +54,13 @@ h2.title.has_buttons {
 	padding-right: 60px;
 }
 
+h2.title > .close {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	font-size: 1.5em;
+}
+
 a {
     text-decoration: none;
 	cursor: pointer;
@@ -781,6 +788,7 @@ h2 .buttons .on {
 	margin: 0;
 	padding: 0;
 	list-style-type: none;
+	cursor: pointer;
 }
 
 .staffs_role li {
@@ -841,6 +849,44 @@ h2 .buttons .on {
 	white-space: nowrap;
 	font-size: 0.9em;
 	color: var(--main-font-color);
+}
+
+.dialog {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dialog > div {
+	min-width: 400px;
+	min-height: 400px;
+	padding: 15px;
+	border-radius: 10px;
+	background-color: #fff;
+}
+
+.dialog > div > h2 {
+	border-bottom: solid 3px var(--table-border-top-color);
+}
+
+.history-list {
+	background-color: #fff;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	max-height: calc(100vh - 300px);
+	overflow-y: auto;
+}
+
+.history-list > li {
+	padding: 5px 0;
+	border-bottom: dotted 1px #ccc;
 }
 
 /* etc */

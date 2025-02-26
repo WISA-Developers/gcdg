@@ -320,6 +320,12 @@ class Issue extends App {
         }
         $read[$staff_idx]++;
 
+        $this->db->table('issue_read_history')->insert([
+            'issue_idx' => $idx,
+            'staff_idx' => $staff_idx,
+            'registerd' => $this->db->raw('now()')
+        ]);
+
         // 담당자 목록
         $all_staff_idx = []; // 이슈 내 담당자 전체 pkey
         $res = $this->db
@@ -1016,6 +1022,58 @@ class Issue extends App {
         $this->output([
             'status' => 'success',
             'message' => '삭제되었습니다.'
+        ]);
+    }
+
+    public function history(ParsedURI $parsed_uri)
+    {
+        $issue_idx = (int) $parsed_uri->getParameter('args2');
+        $staff_idx = (int) $parsed_uri->getParameter('args3');
+
+        if (empty($issue_idx) || empty($staff_idx)) {
+            $this->output([
+                'status' => 'error',
+                'new_hash' => md5(microtime()),
+            ]);
+        }
+
+        $data = $this->db
+            ->table('issue')
+            ->where('idx', '=', $issue_idx)
+            ->first();
+        if (!$data) {
+            throw new CommonException('이슈 데이터가 없습니다.');
+        }
+        if (!$this->issuePermission('read', $data)) {
+            throw new CommonException('이슈 접근 권한이 없습니다.');
+        }
+
+        $res = $this->db->table('issue_read_history')
+            ->where('issue_idx', $issue_idx)
+            ->where('staff_idx', $staff_idx)
+            ->orderBy('registerd', 'desc')
+            ->get();
+        foreach ($res as $data) {
+            $gap = time() - strtotime($data->registerd);
+            if ($gap < 60) {
+                $data->gap = $gap . '초 전';
+            }
+            else if ($gap < 3600) {
+                $data->gap  = floor($gap / 60) . '분 ';
+                $data->gap .= ($gap % 60) . '초 전';
+            }
+            else if ($gap < 86400) {
+                $data->gap  = floor($gap / 3600) . '시간 ';
+                $data->gap .= floor(($gap % 3600) / 60) . '분 전';
+            }
+            else {
+                $data->gap  = floor($gap / 86400) . '일 전';
+            }
+        }
+
+        $this->output([
+            'status' => 'success',
+            'data' => $res
         ]);
     }
 

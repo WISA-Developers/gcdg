@@ -48,7 +48,7 @@
 						<th>작성자</th>
 						<td>
 							<ul class="staffs_role">
-								<li v-for="staff in data.creater">
+								<li v-for="staff in data.creater" @click="viewHistory(staff.idx)">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     {{ data.registerd }}&nbsp;
@@ -61,7 +61,7 @@
 						<th>기획</th>
 						<td>
 							<ul class="staffs_role">
-								<li v-for="staff in data.planner">
+								<li v-for="staff in data.planner" @click="viewHistory(staff.idx)">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
@@ -73,7 +73,7 @@
 						<th>디자인</th>
 						<td>
 							<ul class="staffs_role">
-								<li v-for="staff in data.designer">
+								<li v-for="staff in data.designer" @click="viewHistory(staff.idx)">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
@@ -85,7 +85,7 @@
 						<th>퍼블리싱</th>
 						<td>
 							<ul class="staffs_role">
-								<li v-for="staff in data.publisher">
+								<li v-for="staff in data.publisher" @click="viewHistory(staff.idx)">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
@@ -97,7 +97,7 @@
 						<th>개발</th>
 						<td>
 							<ul class="staffs_role">
-								<li v-for="staff in data.developer">
+								<li v-for="staff in data.developer" @click="viewHistory(staff.idx)">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
@@ -109,7 +109,7 @@
 						<th>검수</th>
 						<td>
 							<ul class="staffs_role">
-								<li v-for="staff in data.tester">
+								<li v-for="staff in data.tester" @click="viewHistory(staff.idx)">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
@@ -121,7 +121,7 @@
 						<th>참조자</th>
 						<td>
 							<ul class="staffs_role">
-								<li v-for="staff in data.referer">
+								<li v-for="staff in data.referer" @click="viewHistory(staff.idx)">
 									<img :src="'/api/staff/portrait/'+staff.idx">
 									{{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
@@ -133,7 +133,7 @@
                         <th>최종확인자</th>
                         <td>
                             <ul class="staffs_role">
-                                <li v-for="staff in data.checker">
+                                <li v-for="staff in data.checker" @click="viewHistory(staff.idx)">
                                     <img :src="'/api/staff/portrait/'+staff.idx">
                                     {{ staff.name }} &lt;{{ staff.group_name }}&gt;
                                     <i v-if="read.includes(staff.idx)" class="xi-check" style="color: #ff1111"></i>
@@ -335,6 +335,11 @@
 			</div>
 		</div>
 	</div>
+    <history
+        v-if="history"
+        :hist="history"
+        @close="history = null"
+    ></history>
 </template>
 
 <script type="module">
@@ -365,7 +370,8 @@ export default {
 				component_file_count: '-',
 				comoponent_chain_count: '-'
 			},
-			stopWatch: false
+			stopWatch: false,
+            history: null
 		})
 	},
 	watch: {
@@ -584,7 +590,14 @@ export default {
 		goWep: function(idx)
 		{
 			window.open('https://wep.wisa.co.kr/customer/detail?customer_idx='+idx)
-		}
+		},
+        viewHistory: function(staff_idx)
+        {
+            this.history = {
+                issue_idx: this.idx,
+                staff_idx: staff_idx
+            }
+        }
 	},
 	beforeMount: function() {
         // 이전 리스트 주소
@@ -606,6 +619,7 @@ export default {
 		'issue_files': Vue.defineAsyncComponent(() => loadModule('/resource/view/issue/issue_files.vue', options)),
 		'issue_comment': Vue.defineAsyncComponent(() => loadModule('/resource/view/issue/issue_comment.vue', options)),
 		'issue_chain': Vue.defineAsyncComponent(() => loadModule('/resource/view/issue/issue_chain.vue', options)),
+        'history': Vue.defineAsyncComponent(() => loadModule('/resource/view/issue/view_history.vue', options)),
         datepicker
 	}
 }
