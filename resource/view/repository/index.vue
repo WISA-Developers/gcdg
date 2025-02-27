@@ -58,7 +58,7 @@
                     </td>
                 </tr>
                 <tr v-if="list.length == 0 || loading">
-                    <td colspan="4" :class="{nodata: true, loading: this.loading}"><i class="xi-info xi-1x"></i> 검색된 내역이 없습니다.</td>
+                    <td colspan="5" :class="{nodata: true, loading: this.loading}"><i class="xi-info xi-1x"></i> 검색된 내역이 없습니다.</td>
                 </tr>
                 </tbody>
             </table>
