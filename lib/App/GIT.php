@@ -41,7 +41,7 @@ class GIT extends App {
 
         $command  = "cd $this->path && ";
         $command .= "git fetch && ";
-        $command .= "git log origin --oneline --pretty=format:\"%H[spt]%an[spt]%ci[spt]%s[spt]%h\" ";
+        $command .= "git log origin --oneline --pretty=format:\"%H[spt]%an[spt]%ci[spt]%s[spt]%h%d\" ";
         if ($date_s) {
             $date_s = date('Y-m-d', strtotime('-1 days', strtotime($date_s)));
             $command .= "--since=$date_s ";
@@ -65,12 +65,19 @@ class GIT extends App {
             $dateformat = $this->dateformat(new \DateTime($ret[2]));
             if ($date_s == date('Y-m-d', strtotime($dateformat))) continue;
 
+            $tag = '';
+            if (str_contains($ret[4], 'tag')) {
+                preg_match('/\(tag: ([^)]+)\)/', $ret[4], $tag);
+                $tag = $tag[1];
+            }
+
             array_push($logs, [
                 'rev' => $ret[0],
                 'rev_v' => $ret[4],
                 'author' => $ret[1],
                 'date' => $dateformat,
-                'message' => $ret[3]
+                'message' => $ret[3],
+                'tag' => $tag
             ]);
         }
         return $logs;

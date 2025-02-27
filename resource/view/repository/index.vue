@@ -34,6 +34,7 @@
                 </colgroup>
                 <thead>
                 <tr>
+                    <th v-if="repository.type == 'GIT'">태그</th>
                     <th>버전</th>
                     <th>처리일시</th>
                     <th>처리자</th>
@@ -42,7 +43,12 @@
                 </thead>
                 <tbody>
                 <tr v-if="!this.loading" v-for="data in list">
-                    <td style="overflow: hidden; text-overflow: ellipsis;">r{{ data.rev }}</td>
+                    <td v-if="repository.type == 'GIT'">
+                        {{ data.tag }}
+                    </td>
+                    <td style="overflow: hidden; text-overflow: ellipsis;">
+                        r{{ data.rev }}
+                    </td>
                     <td class="date">{{ data.date }}</td>
                     <td>{{ data.author}}</td>
                     <td class="left">
