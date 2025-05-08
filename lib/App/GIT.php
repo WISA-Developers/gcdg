@@ -41,7 +41,7 @@ class GIT extends App {
 
         $command  = "cd $this->path && ";
         $command .= "git fetch && ";
-        $command .= "git log origin --oneline --pretty=format:\"%H[spt]%an[spt]%ci[spt]%s[spt]%h%d\" ";
+        $command .= "git log master --oneline --pretty=format:\"%H[spt]%an[spt]%ci[spt]%s[spt]%h%d\" ";
         if ($date_s) {
             $date_s = date('Y-m-d', strtotime('-1 days', strtotime($date_s)));
             $command .= "--since=$date_s ";

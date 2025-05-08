@@ -30,6 +30,7 @@
                     <col style="width:80px;">
                     <col style="width:110px">
                     <col style="width:110px">
+                    <col style="width:110px">
                     <col>
                 </colgroup>
                 <thead>
