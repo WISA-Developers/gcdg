@@ -56,7 +56,7 @@ class GIT extends App {
         if ($limit > 0) {
             $command .= "-$limit ";
         }
-        $result = explode("\n", shell_exec($command));
+        exec($command, $result);
 
         $logs = [];
         foreach ($result as $ret) {
